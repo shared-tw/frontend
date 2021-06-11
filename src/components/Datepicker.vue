@@ -5,6 +5,7 @@ import {
   addDays, isToday, isSameMonth, isSameDay, eachDayOfInterval,
   format, getMonth, setMonth,
 } from 'date-fns'
+import { useEventListener } from '@vueuse/core'
 
 type TDay = {
   date: Date
@@ -22,8 +23,7 @@ const props = defineProps({
 
 const emit = defineEmit(['update:modelValue'])
 
-const dateInput = ref(null)
-const calendar = ref(null)
+const calendar = ref<HTMLDivElement>()
 const isShow = ref(false)
 
 const showCalendar = () => { isShow.value = true }
@@ -120,17 +120,24 @@ const setSelectedDate = (day: TDay) => {
   }
   hideCalendar()
 }
+
+const handleOutsideClick = (e: Event) => {
+  e.stopPropagation()
+
+  if (!calendar.value?.contains(e.target as Node)) {
+    hideCalendar()
+  }
+}
+
+useEventListener(document, 'click', handleOutsideClick)
+useEventListener(document, 'touchstart', handleOutsideClick)
 </script>
 <template>
   <div
     ref="calendar"
-    v-close="{
-      handler: 'hideCalendar'
-    }"
     class="relative"
   >
     <input
-      ref="dateInput"
       :value="formatedDate"
       class="border border-tansparent rounded-md outline-none w-full py-2 px-3 focus:border-gray-400"
       readonly
