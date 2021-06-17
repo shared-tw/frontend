@@ -25,10 +25,10 @@ const isOpen = ref(false)
           />
         </div>
         <div class="flex justify-end w-full ">
-          <AppButton class="text-gray-400 px-3  bg-white border-gray-300 border rounded hover:bg-gray-300 hover:text-white focus:outline-none">
+          <AppButton class="btn-outline text-gray-400 border-gray-300  hover:bg-gray-300 hover:text-white ">
             取消
           </AppButton>
-          <AppButton class=" bg-darkblue text-white py-2 px-3 rounded ml-3 hover:bg-blue-900 focus:outline-none">
+          <AppButton class="bg-darkblue ml-3 hover:bg-blue-900 ">
             提供聯絡資訊
           </AppButton>
         </div>
