@@ -131,7 +131,7 @@ const setSelectedDate = (day: TDay) => {
         <header class="flex items-center justify-around col-span-7">
           <button
             class="icon-btn text-sm"
-            @click="prevMonth"
+            @click.stop="prevMonth"
           >
             <uil:angle-double-left />
           </button>
@@ -140,7 +140,7 @@ const setSelectedDate = (day: TDay) => {
           </span>
           <button
             class="icon-btn text-sm"
-            @click="nextMonth"
+            @click.stop="nextMonth"
           >
             <uil:angle-double-right />
           </button>
