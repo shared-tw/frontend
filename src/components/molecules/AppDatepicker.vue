@@ -4,7 +4,7 @@ import dayjs, { Dayjs } from 'dayjs'
 import { useEventListener } from '@vueuse/core'
 
 type TDay = {
-  date: Dayjs,
+  date: Dayjs
   isCurrentMonth: boolean
   isToday: boolean
   isSelected: boolean
@@ -17,8 +17,8 @@ const props = defineProps({
   },
   format: {
     type: String,
-    default: 'YYYY-MM-DD'
-  }
+    default: 'YYYY-MM-DD',
+  },
 })
 
 const emit = defineEmit(['update:modelValue'])
@@ -194,11 +194,11 @@ useEventListener(document, 'touchstart', handleOutsideClick)
 </template>
 <style scoped lang="postcss">
 .calendar-container {
-  @apply 
+  @apply
     grid grid-cols-7
     bg-white border-0
     pt-1 px-2 py-3 mt-1 z-2
-    rounded-md shadow-md 
+    rounded-md shadow-md
     absolute left-0;
 }
 .date-btn {
