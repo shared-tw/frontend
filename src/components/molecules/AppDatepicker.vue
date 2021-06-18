@@ -1,14 +1,10 @@
 <script setup lang="ts">
 import { computed, defineProps, ref, defineEmit } from 'vue'
-import {
-  startOfMonth, lastDayOfMonth, addMonths, getDay,
-  addDays, isToday, isSameMonth, isSameDay, eachDayOfInterval,
-  format, getMonth, setMonth,
-} from 'date-fns'
+import dayjs, { Dayjs } from 'dayjs'
 import { useEventListener } from '@vueuse/core'
 
 type TDay = {
-  date: Date
+  date: Dayjs,
   isCurrentMonth: boolean
   isToday: boolean
   isSelected: boolean
@@ -19,6 +15,10 @@ const props = defineProps({
     type: String,
     required: true,
   },
+  format: {
+    type: String,
+    default: 'YYYY-MM-DD'
+  }
 })
 
 const emit = defineEmit(['update:modelValue'])
@@ -70,31 +70,35 @@ const MONTH_LABELS = [
 ];
 */
 
-const currDateCursor = ref(new Date(props.modelValue))
-const selectedDate = ref(new Date(props.modelValue))
+const currDateCursor = ref(dayjs(props.modelValue))
+const selectedDate = ref(dayjs(props.modelValue))
 
-const formatedDate = computed(() => format(selectedDate.value, 'yyyy-MM-dd'))
+const formatedDate = computed(() => selectedDate.value.format(props.format))
 
-const curYear = computed(() => currDateCursor.value.getFullYear())
-const curMonth = computed(() => MONTH_LABELS_TW[currDateCursor.value.getMonth()])
+const curYear = computed(() => currDateCursor.value.year())
+const curMonth = computed(() => MONTH_LABELS_TW[currDateCursor.value.month()])
 const dates = computed(() => {
   const cursorDate = currDateCursor
-  let startDate = startOfMonth(cursorDate.value)
-  let endDate = lastDayOfMonth(cursorDate.value)
-  const daysNeededForLastMonth = getDay(startDate)
-  const daysNeededForNextMonth = 6 - getDay(endDate)
-  startDate = addDays(startDate, -daysNeededForLastMonth)
-  endDate = addDays(endDate, daysNeededForNextMonth)
+  const startOfMonth = cursorDate.value.startOf('M')
+  const endOfMonth = cursorDate.value.endOf('M')
+  const daysNeededForLastMonth = startOfMonth.day()
+  const daysNeededForNextMonth = 6 - endOfMonth.day()
+  const startDate = startOfMonth.add(-daysNeededForLastMonth, 'd')
+  const endDate = endOfMonth.add(daysNeededForNextMonth, 'd')
 
-  return eachDayOfInterval({ start: startDate, end: endDate }).map((date: Date) => ({
-    date,
-    isCurrentMonth: isSameMonth(cursorDate.value, date),
-    isToday: isToday(date),
-    isSelected: isSameDay(selectedDate.value, date),
-  }))
+  return Array.from({ length: endDate.diff(startDate, 'd') + 1 }).map((_, i) => {
+    const date = startDate.add(i, 'd')
+
+    return {
+      date,
+      isCurrentMonth: date.isSame(cursorDate.value, 'M'),
+      isToday: date.isSame(dayjs(props.modelValue)),
+      isSelected: date.isSame(selectedDate.value),
+    }
+  })
 })
 
-const formatDateToDay = (val: Date) => format(val, 'd')
+const formatDateToDay = (val: Dayjs) => val.date()
 
 const dayClassObj = (day: TDay) => ({
   today: day.isToday,
@@ -103,20 +107,20 @@ const dayClassObj = (day: TDay) => ({
 })
 
 const nextMonth = () => {
-  currDateCursor.value = addMonths(currDateCursor.value, 1)
+  currDateCursor.value = currDateCursor.value.add(1, 'M')
 }
 
 const prevMonth = () => {
-  currDateCursor.value = addMonths(currDateCursor.value, -1)
+  currDateCursor.value = currDateCursor.value.add(-1, 'M')
 }
 
 const setSelectedDate = (day: TDay) => {
   selectedDate.value = day.date
-  emit('update:modelValue', format(selectedDate.value, 'yyyy-MM-dd'))
+  emit('update:modelValue', selectedDate.value.format('YYYY-MM-DD'))
   // change calendar to correct month if they select previous or next month's days
   if (!day.isCurrentMonth) {
-    const selectedMonth = getMonth(selectedDate.value)
-    currDateCursor.value = setMonth(currDateCursor.value, selectedMonth)
+    const selectedMonth = selectedDate.value.month()
+    currDateCursor.value = currDateCursor.value.month(selectedMonth)
   }
   hideCalendar()
 }
@@ -190,11 +194,20 @@ useEventListener(document, 'touchstart', handleOutsideClick)
 </template>
 <style scoped lang="postcss">
 .calendar-container {
-  @apply bg-white border-0 pt-1 px-2 py-3 rounded-md shadow-md grid grid-cols-7 absolute -left-15 mt-1 z-2;
+  @apply 
+    grid grid-cols-7
+    bg-white border-0
+    pt-1 px-2 py-3 mt-1 z-2
+    rounded-md shadow-md 
+    absolute left-0;
 }
 .date-btn {
-  @apply outline-none text-gray-400 w-full rounded py-1 px-2
-    flex justify-center focus:bg-primary focus:text-white;
+  @apply
+    outline-none w-full rounded-md
+    py-1 px-2
+    flex justify-center
+    focus:bg-primary
+    text-gray-400 focus:text-white;
 }
 
 .current {
