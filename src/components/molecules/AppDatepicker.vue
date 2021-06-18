@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { computed, defineProps, ref, defineEmit } from 'vue'
 import dayjs, { Dayjs } from 'dayjs'
-import { useEventListener } from '@vueuse/core'
 
 type TDay = {
   date: Dayjs
@@ -22,12 +21,6 @@ const props = defineProps({
 })
 
 const emit = defineEmit(['update:modelValue'])
-
-const calendar = ref<HTMLDivElement>()
-const isShow = ref(false)
-
-const showCalendar = () => { isShow.value = true }
-const hideCalendar = () => { isShow.value = false }
 
 const DAY_LABELS_TW = [
   '日',
@@ -122,75 +115,60 @@ const setSelectedDate = (day: TDay) => {
     const selectedMonth = selectedDate.value.month()
     currDateCursor.value = currDateCursor.value.month(selectedMonth)
   }
-  hideCalendar()
 }
-
-const handleOutsideClick = (e: Event) => {
-  e.stopPropagation()
-
-  if (!calendar.value?.contains(e.target as Node)) {
-    hideCalendar()
-  }
-}
-
-useEventListener(document, 'click', handleOutsideClick)
-useEventListener(document, 'touchstart', handleOutsideClick)
 </script>
 <template>
-  <div
-    ref="calendar"
-    class="relative"
-  >
+  <AppPopover>
     <input
       :value="formatedDate"
       class="border border-tansparent rounded-md outline-none w-full py-2 px-3 focus:border-gray-400"
       readonly
-      @focus="showCalendar"
     >
-    <div
-      v-if="isShow"
-      class="calendar-container"
-    >
-      <header class="flex items-center justify-around col-span-7">
-        <button
-          class="icon-btn text-sm"
-          @click="prevMonth"
-        >
-          <uil:angle-double-left />
-        </button>
-        <span class="p-2">
-          {{ curMonth }} {{ curYear }}
-        </span>
-        <button
-          class="icon-btn text-sm"
-          @click="nextMonth"
-        >
-          <uil:angle-double-right />
-        </button>
-      </header>
+    <template #content>
       <div
-        v-for="dayLabel in DAY_LABELS_TW"
-        :key="dayLabel"
-        class="flex items-center justify-center"
+        class="calendar-container"
       >
-        {{ dayLabel }}
-      </div>
-      <div
-        v-for="(day, index) in dates"
-        :key="index"
-        class="rounded"
-        :class="dayClassObj(day)"
-      >
-        <button
-          class="date-btn"
+        <header class="flex items-center justify-around col-span-7">
+          <button
+            class="icon-btn text-sm"
+            @click="prevMonth"
+          >
+            <uil:angle-double-left />
+          </button>
+          <span class="p-2">
+            {{ curMonth }} {{ curYear }}
+          </span>
+          <button
+            class="icon-btn text-sm"
+            @click="nextMonth"
+          >
+            <uil:angle-double-right />
+          </button>
+        </header>
+        <div
+          v-for="dayLabel in DAY_LABELS_TW"
+          :key="dayLabel"
+          class="flex items-center justify-center"
+        >
+          {{ dayLabel }}
+        </div>
+        <div
+          v-for="(day, index) in dates"
+          :key="index"
+          class="rounded"
           :class="dayClassObj(day)"
-          @click="setSelectedDate(day)"
         >
-          {{ formatDateToDay(day.date) }}
-        </button>
+          <button
+            class="date-btn"
+            :class="dayClassObj(day)"
+            @click="setSelectedDate(day)"
+          >
+            {{ formatDateToDay(day.date) }}
+          </button>
+        </div>
       </div>
-    </div>
-  </div>
+    </template>
+  </AppPopover>
 </template>
 <style scoped lang="postcss">
 .calendar-container {
@@ -198,8 +176,8 @@ useEventListener(document, 'touchstart', handleOutsideClick)
     grid grid-cols-7
     bg-white border-0
     pt-1 px-2 py-3 mt-1 z-2
-    rounded-md shadow-md
-    absolute left-0;
+    rounded-md shadow-md;
+    /* absolute left-0; */
 }
 .date-btn {
   @apply
