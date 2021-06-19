@@ -29,6 +29,9 @@ declare module 'vue' {
     FormSelect: typeof import('./src/components/molecules/FormSelect.vue')['default']
     ApplySupplyList: typeof import('./src/components/organisms/ApplySupplyList.vue')['default']
     ApplyToolbar: typeof import('./src/components/organisms/ApplyToolbar.vue')['default']
+    Card: typeof import('./src/components/organisms/Card.vue')['default']
+    ConfirmModel: typeof import('./src/components/organisms/ConfirmModel.vue')['default']
+    CurrentOrgInfo: typeof import('./src/components/organisms/CurrentOrgInfo.vue')['default']
     DonatorRegisterForm: typeof import('./src/components/organisms/DonatorRegisterForm.vue')['default']
     LoginForm: typeof import('./src/components/organisms/LoginForm.vue')['default']
     OrgInfoNavBar: typeof import('./src/components/organisms/OrgInfoNavBar.vue')['default']
@@ -52,6 +55,14 @@ declare module 'vue' {
     'Uil:angleDown': typeof import('virtual:vite-icons/uil/angle-down')['default']
     'Uil:angleUp': typeof import('virtual:vite-icons/uil/angle-up')['default']
     'Uim:multiply': typeof import('virtual:vite-icons/uim/multiply')['default']
+    'Uil:angleLeft': typeof import('virtual:vite-icons/uil/angle-left')['default']
+    'Fluent:checkboxChecked20Filled': typeof import('virtual:vite-icons/fluent/checkbox-checked20-filled')['default']
+    'Fluent:checkboxUnchecked20Regular': typeof import('virtual:vite-icons/fluent/checkbox-unchecked20-regular')['default']
+    'Mdi:loading': typeof import('virtual:vite-icons/mdi/loading')['default']
+    'Uil:angleDoubleLeft': typeof import('virtual:vite-icons/uil/angle-double-left')['default']
+    'Uil:angleDoubleRight': typeof import('virtual:vite-icons/uil/angle-double-right')['default']
+    'Uil:checkSquare': typeof import('virtual:vite-icons/uil/check-square')['default']
+    'Uil:square': typeof import('virtual:vite-icons/uil/square')['default']
   }
 }
 

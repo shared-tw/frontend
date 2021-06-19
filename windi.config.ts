@@ -10,6 +10,7 @@ export default defineConfig({
         facebook: '#1778F2',
         twitter: '#55ACEE',
         google: '#EA4335',
+        darkblue: '#2C3E50',
       },
     },
   },
