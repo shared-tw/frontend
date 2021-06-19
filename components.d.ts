@@ -18,6 +18,7 @@ declare module 'vue' {
     AppAddMinusButton: typeof import('./src/components/molecules/AppAddMinusButton.vue')['default']
     AppCheckbox: typeof import('./src/components/molecules/AppCheckbox.vue')['default']
     AppDatepicker: typeof import('./src/components/molecules/AppDatepicker.vue')['default']
+    AppDrawer: typeof import('./src/components/molecules/AppDrawer.vue')['default']
     AppPopover: typeof import('./src/components/molecules/AppPopover.vue')['default']
     ApplyListHeader: typeof import('./src/components/molecules/ApplyListHeader.vue')['default']
     ApplyListItem: typeof import('./src/components/molecules/ApplyListItem.vue')['default']
@@ -50,12 +51,7 @@ declare module 'vue' {
     JamCloseCircleF: typeof import('virtual:vite-icons/jam/close-circle-f')['default']
     'Uil:angleDown': typeof import('virtual:vite-icons/uil/angle-down')['default']
     'Uil:angleUp': typeof import('virtual:vite-icons/uil/angle-up')['default']
-    'Uil:angleLeft': typeof import('virtual:vite-icons/uil/angle-left')['default']
-    'Fluent:checkboxChecked20Filled': typeof import('virtual:vite-icons/fluent/checkbox-checked20-filled')['default']
-    'Fluent:checkboxUnchecked20Regular': typeof import('virtual:vite-icons/fluent/checkbox-unchecked20-regular')['default']
-    'Mdi:loading': typeof import('virtual:vite-icons/mdi/loading')['default']
-    'Uil:angleDoubleLeft': typeof import('virtual:vite-icons/uil/angle-double-left')['default']
-    'Uil:angleDoubleRight': typeof import('virtual:vite-icons/uil/angle-double-right')['default']
+    'Uim:multiply': typeof import('virtual:vite-icons/uim/multiply')['default']
   }
 }
 
