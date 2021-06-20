@@ -68,7 +68,8 @@ useEventListener(document, 'click', handleOutsideClick)
     </div>
   </div>
 </template>
-<style lang="postcss">
+
+<style scoped lang="postcss">
 .drawer {
   @apply
     p-2 z-50
