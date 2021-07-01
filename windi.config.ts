@@ -4,7 +4,11 @@ export default defineConfig({
   theme: {
     extend: {
       colors: {
-        primary: '#28B78D',
+        primary: {
+          DEFAULT: '#14B8A6',
+          light: '#C6F2EA',
+          dark: '#159385',
+        },
         secondary: '#17A2B8',
         line: '#00B900',
         facebook: '#1778F2',
@@ -34,9 +38,9 @@ export default defineConfig({
       },
     },
     'tag': {
-      '@apply': 'inline-block py-1 px-1.5 bg-secondary text-white text-sm leading-4 rounded',
+      '@apply': 'inline-block py-1 px-1.5 bg-primary text-white text-sm leading-4 rounded',
       '&-outline': {
-        '@apply': 'bg-white py-0.75 px-1.25 border border-secondary text-secondary',
+        '@apply': 'bg-white py-0.75 px-1.25 border border-primary text-primary',
       },
     },
   },

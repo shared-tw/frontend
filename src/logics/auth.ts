@@ -55,8 +55,7 @@ export function useAuth() {
 
   // handle SSO logins
   function loginWithLine() {
-    // eslint-disable-next-line no-alert
-    alert('Login with Line')
+    window.open('https://shared-tw.herokuapp.com/oauth/line/login?next=/oauth/interaction')
   }
   function loginWithFacebook() {
     // eslint-disable-next-line no-alert

@@ -31,15 +31,18 @@ const limitItems = computed(() => {
 
 <template>
   <AppCard>
-    <div class="flex items-center justify-between mb-1">
-      <h2 class="text-xl font-bold">
+    <div class="flex items-center mb-1 space-x-2">
+      <h2 class="text-xl font-bold flex-1">
         {{ organization.name }}
       </h2>
       <AppLabel outline>
         {{ organization.type }}
       </AppLabel>
+      <AppLabel>
+        {{ organization.city }}
+      </AppLabel>
     </div>
-    <div class="table w-full border-collapse mb-1">
+    <div class="table w-full border-collapse mb-1 text-sm">
       <div class="table-header-group">
         <div class="table-row">
           <div class="table-cell p-1 w-2/4">
@@ -69,8 +72,8 @@ const limitItems = computed(() => {
     </div>
     <div v-if="showExpend" class="px-8">
       <button class="w-full text-center text-sm text-gray-400 border-t border-gray-100 pt-1 hover:text-gray-500 focus:outline-none" @click="expended = !expended">
-        <uil:angle-down v-if="!expended" />
-        <uil:angle-up v-else />
+        <span v-if="!expended">顯示更多</span>
+        <span v-else>縮小</span>
       </button>
     </div>
     <div class="flex justify-between items-center mt-2">

@@ -1,3 +1,6 @@
 :root {
   --header-height: 60px;
+  --shared-bg: theme('colors.light.100');
+  --shared-text: theme('colors.cool-gray.800');
+  --shared-bc: theme('colors.cool-gray.200');
 }

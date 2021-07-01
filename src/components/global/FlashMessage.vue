@@ -1,24 +1,8 @@
-<template>
-  <transition name="popup">
-    <div v-show="show" class="fixed inset-x-0 z-50 flex justify-center text-gray-700 transition-all transform bottom-4 dark:text-gray-100">
-      <div
-        class="relative px-8 py-3 rounded-md"
-        :class="[color, textColor]"
-      >
-        <button class="absolute top-0 right-0 p-1 text-black text-sm hover:text-gray-600 focus:outline-none" @click="hideMessage">
-          <jam-close-circle-f />
-        </button>
-        {{ message }}
-      </div>
-    </div>
-  </transition>
-</template>
-
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue'
-import { emitter, FLASH_EVENT } from '@/logics/emitter'
+import { ref, computed } from 'vue'
+import { onFlash } from '@/logics/emitter'
 
-import type { FlashPayload, Colors } from '@/logics/emitter'
+import type { Colors } from '@/logics/emitter'
 
 const show = ref(false)
 const message = ref('')
@@ -52,21 +36,31 @@ const setDelayedHide = () => {
   if (timeoutId.value) { clearTimeout(timeoutId.value) }
   timeoutId.value = window.setTimeout(hideMessage, 3000)
 }
-const showMessage = (payload: FlashPayload) => {
+
+onFlash((payload) => {
   setTransitionDelay()
   message.value = payload.message
   emitColor.value = payload.color
   show.value = true
   setDelayedHide()
-}
-
-onMounted(() => {
-  emitter.on<FlashPayload>(FLASH_EVENT, (e) => {
-    if (!e) return
-    showMessage(e)
-  })
 })
 </script>
+
+<template>
+  <transition name="popup">
+    <div v-show="show" class="flex transform inset-x-0 transition-all bottom-4 text-gray-700 z-50 fixed justify-center dark:text-gray-100">
+      <div
+        class="rounded-md py-3 px-8 relative"
+        :class="[color, textColor]"
+      >
+        <button class="text-black text-sm p-1 top-0 right-0 absolute focus:outline-none hover:text-gray-600" @click="hideMessage">
+          <jam-close-circle-f />
+        </button>
+        {{ message }}
+      </div>
+    </div>
+  </transition>
+</template>
 
 <style scoped lang='postcss'>
 .popup-leave-active {
