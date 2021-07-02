@@ -8,9 +8,7 @@ const schema = {
   email: 'required|email',
 }
 
-function onSubmit(values: {
-  email: string
-}) {
+function onSubmit(values: any) {
   resetPassword(values.email)
 }
 </script>

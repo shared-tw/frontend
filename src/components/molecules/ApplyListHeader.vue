@@ -1,13 +1,6 @@
-<script setup lang="ts">
-import { defineProps } from 'vue'
-
-defineProps({})
-
-</script>
-
 <template>
-  <div class="flex items-center pl-11 pr-3">
-    <div class="space-x-1 flex flex-1 text-sm">
+  <div class="flex pr-3 pl-11 items-center">
+    <div class="flex space-x-1 flex-1 text-sm">
       <div class="pr-1 pl-4 w-2/4">
         品項名稱
       </div>

@@ -23,7 +23,7 @@ const schema: ToSchema<RegisterDonatorArgs> = {
 
 const isLoading = ref(false)
 
-function onSubmit(values: RegisterDonatorArgs) {
+function onSubmit(values: any) {
   const { loading } = registerDonator(values)
   syncRef(loading, isLoading)
 }

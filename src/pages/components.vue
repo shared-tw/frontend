@@ -1,12 +1,5 @@
-<script setup lang="ts">
-import { defineProps } from 'vue'
-
-defineProps({})
-
-</script>
-
 <template>
-  <div class="grid grid-cols-5 gap-4">
+  <div class="grid gap-4 grid-cols-5">
     <div class="space-y-2">
       <AppTitle>
         Buttons

@@ -1,9 +1,5 @@
 <script setup lang="ts">
-import { defineProps } from 'vue'
 import { supplyInfos } from '@/data'
-
-defineProps({})
-
 </script>
 
 <template>

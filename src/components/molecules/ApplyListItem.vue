@@ -3,25 +3,23 @@ import { defineProps } from 'vue'
 import { useApply } from '@/logics/apply'
 import dayjs from 'dayjs'
 
-import type { PropType } from 'vue'
 import type { SupplyItem } from '@/types'
 
 const { changeItem, isChecked } = useApply()
 
-defineProps({
-  item: {
-    type: Object as PropType<SupplyItem>,
-    required: true,
-  },
-})
+interface Props {
+  item: SupplyItem
+}
+
+defineProps<Props>()
 
 </script>
 
 <template>
-  <div class="flex items-center border border-gray-600 rounded-md py-2 px-3">
+  <div class="border rounded-md flex border-gray-600 py-2 px-3 items-center">
     <AppCheckbox :checked="isChecked(item.id)" @change="changeItem(item, $event)" />
-    <div class="space-x-1 flex flex-1">
-      <div class="pr-1 pl-3 font-medium mr-auto w-2/4">
+    <div class="flex space-x-1 flex-1">
+      <div class="font-medium mr-auto pr-1 pl-3 w-2/4">
         {{ item.name }}
       </div>
       <div class="px-1 w-1/4">

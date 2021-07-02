@@ -1,26 +1,18 @@
 <script setup lang="ts">
-import { defineProps } from 'vue'
+import { defineProps, withDefaults } from 'vue'
 
-import type { PropType } from 'vue'
-import type { LinkProp } from '@/types'
+import type { FormContext } from 'vee-validate'
+import type { UnRef, LinkProp } from '@/types'
 
-defineProps({
-  isLoading: {
-    type: Boolean,
-    default: false,
-  },
-  meta: {
-    type: Object,
-    required: true,
-  },
-  buttonName: {
-    type: String,
-    required: true,
-  },
-  link: {
-    type: Object as PropType<LinkProp>,
-    required: true,
-  },
+interface Props {
+  isLoading?: boolean
+  meta: UnRef<FormContext['meta']>
+  buttonName: string
+  link: LinkProp
+}
+
+withDefaults(defineProps<Props>(), {
+  isLoading: false,
 })
 
 </script>

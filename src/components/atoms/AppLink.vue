@@ -1,25 +1,19 @@
 <script setup lang="ts">
-import { computed, defineProps } from 'vue'
-import type { PropType } from 'vue'
+import { computed, defineProps, withDefaults } from 'vue'
 
-const props = defineProps({
-  to: {
-    type: [String, Object] as PropType<string | object | null>,
-    default: null,
-  },
-  href: {
-    type: String,
-    default: '',
-  },
-  outline: {
-    type: Boolean,
-    default: false,
-  },
-  inline: {
-    type: Boolean,
-    default: false,
-  },
-  size: String as PropType<'sm'>,
+interface Props {
+  to?: string | object
+  href?: string
+  outline?: boolean
+  inline?: boolean
+  size?: 'sm'
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  to: () => '',
+  href: '',
+  outline: false,
+  inline: false,
 })
 
 const linkClass = computed(() => ({
@@ -37,7 +31,7 @@ const linkClass = computed(() => ({
     :to="to"
     :class="linkClass"
   >
-    <div v-if="$slots.icon" class="inline-block mr-1">
+    <div v-if="$slots.icon" class="mr-1 inline-block">
       <slot name="icon" />
     </div>
     <slot />
@@ -49,7 +43,7 @@ const linkClass = computed(() => ({
     rel="noopener"
     :class="linkClass"
   >
-    <div v-if="$slots.icon" class="inline-block mr-1">
+    <div v-if="$slots.icon" class="mr-1 inline-block">
       <slot name="icon" />
     </div>
     <slot />

@@ -1,10 +1,3 @@
-<script setup lang="ts">
-import { defineProps } from 'vue'
-
-defineProps({})
-
-</script>
-
 <template>
   <div class="border-t pt-2">
     <span class="py-2 block">註冊帳號：</span>

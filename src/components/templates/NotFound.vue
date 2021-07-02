@@ -1,13 +1,6 @@
-<script setup lang="ts">
-import { defineProps } from 'vue'
-
-defineProps({})
-
-</script>
-
 <template>
   <main>
-    <h1 class="text-3xl font-bold py-16">
+    <h1 class="font-bold py-16 text-3xl">
       404 Not Found
     </h1>
     <router-link to="/" class="hover:text-secondary">

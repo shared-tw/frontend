@@ -2,15 +2,13 @@
 import { defineProps, toRefs, ref, computed } from 'vue'
 import dayjs from 'dayjs'
 
-import type { PropType } from 'vue'
 import type { TSupplyInfo } from '@/types'
 
-const props = defineProps({
-  supplyInfo: {
-    type: Object as PropType<TSupplyInfo>,
-    required: true,
-  },
-})
+interface Props {
+  supplyInfo: TSupplyInfo
+}
+
+const props = defineProps<Props>()
 
 const {
   id,
@@ -31,8 +29,8 @@ const limitItems = computed(() => {
 
 <template>
   <AppCard>
-    <div class="flex items-center mb-1 space-x-2">
-      <h2 class="text-xl font-bold flex-1">
+    <div class="flex space-x-2 mb-1 items-center">
+      <h2 class="font-bold flex-1 text-xl">
         {{ organization.name }}
       </h2>
       <AppLabel outline>
@@ -42,42 +40,42 @@ const limitItems = computed(() => {
         {{ organization.city }}
       </AppLabel>
     </div>
-    <div class="table w-full border-collapse mb-1 text-sm">
+    <div class="border-collapse text-sm mb-1 w-full table">
       <div class="table-header-group">
         <div class="table-row">
-          <div class="table-cell p-1 w-2/4">
+          <div class="p-1 w-2/4 table-cell">
             品項
           </div>
-          <div class="table-cell p-1 w-1/4">
+          <div class="p-1 w-1/4 table-cell">
             數量
           </div>
-          <div class="table-cell p-1 w-1/4 text-right">
+          <div class="text-right p-1 w-1/4 table-cell">
             期限
           </div>
         </div>
       </div>
       <div class="table-row-group">
-        <div v-for="item in limitItems" :key="item.id" class="table-row border-t">
-          <div class="table-cell p-1">
+        <div v-for="item in limitItems" :key="item.id" class="border-t table-row">
+          <div class="p-1 table-cell">
             {{ item.name }}
           </div>
-          <div class="table-cell p-1">
+          <div class="p-1 table-cell">
             {{ item.amount }}/{{ item.unit }}
           </div>
-          <div class="table-cell p-1 text-right">
+          <div class="text-right p-1 table-cell">
             {{ dayjs(item.expiredAt).format('MM/DD') }}
           </div>
         </div>
       </div>
     </div>
     <div v-if="showExpend" class="px-8">
-      <button class="w-full text-center text-sm text-gray-400 border-t border-gray-100 pt-1 hover:text-gray-500 focus:outline-none" @click="expended = !expended">
+      <button class="border-t border-gray-100 text-center text-sm w-full pt-1 text-gray-400 focus:outline-none hover:text-gray-500" @click="expended = !expended">
         <span v-if="!expended">顯示更多</span>
         <span v-else>縮小</span>
       </button>
     </div>
-    <div class="flex justify-between items-center mt-2">
-      <span class="text-gray-400 text-sm px-1">
+    <div class="flex mt-2 justify-between items-center">
+      <span class="text-sm px-1 text-gray-400">
         總計 {{ total }} 項
       </span>
       <AppLink size="sm" :to="`/apply?id=${id}`">

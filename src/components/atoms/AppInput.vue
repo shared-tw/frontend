@@ -5,40 +5,33 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { defineEmit, defineProps } from 'vue'
-import type { PropType } from 'vue'
+// eslint-disable-next-line import/first
+import { defineEmits, defineProps, withDefaults } from 'vue'
 
-defineProps({
-  id: String,
-  name: String,
-  placeholder: String,
-  type: {
-    type: String,
-    default: 'text',
-  },
-  value: {
-    type: [Number, String] as PropType<number | string>,
-    default: '',
-  },
-  error: {
-    type: Boolean,
-    default: false,
-  },
-  autocomplete: {
-    type: String,
-    default: 'off',
-  },
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
-  required: {
-    type: Boolean,
-    default: false,
-  },
+interface Props {
+  id?: string
+  placeholder?: string
+  type?: string
+  value?: number | string
+  error?: boolean
+  autocomplete?: string
+  disabled?: boolean
+  required?: boolean
+}
+
+withDefaults(defineProps<Props>(), {
+  type: 'text',
+  error: false,
+  autocomplete: 'off',
+  disabled: false,
+  required: false,
 })
 
-defineEmit(['change', 'blur', 'click'])
+defineEmits<{
+  (e: 'input', value: Event): void
+  (e: 'blue', value: FocusEvent): void
+  (e: 'click', value: MouseEvent): void
+}>()
 
 </script>
 

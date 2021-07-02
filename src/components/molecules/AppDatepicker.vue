@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, defineProps, ref, defineEmit } from 'vue'
+import { computed, defineProps, ref, defineEmits, withDefaults } from 'vue'
 import dayjs, { Dayjs } from 'dayjs'
 
 type TDay = {
@@ -9,18 +9,18 @@ type TDay = {
   isSelected: boolean
 }
 
-const props = defineProps({
-  modelValue: {
-    type: String,
-    required: true,
-  },
-  format: {
-    type: String,
-    default: 'YYYY-MM-DD',
-  },
+interface Props {
+  modelValue: string
+  format?: string
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  format: 'YYYY-MM-DD',
 })
 
-const emit = defineEmit(['update:modelValue'])
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: string): void
+}>()
 
 const DAY_LABELS_TW = [
   '日',
@@ -122,15 +122,15 @@ const setSelectedDate = (day: TDay) => {
     <input
       :value="formatedDate"
       class="border border-tansparent rounded-md outline-none w-full py-2 px-3 focus:border-gray-400"
-      readonly
+      :readonly="true"
     >
     <template #content>
       <div
         class="calendar-container"
       >
-        <header class="flex items-center justify-around col-span-7">
+        <header class="flex col-span-7 items-center justify-around">
           <button
-            class="icon-btn text-sm"
+            class="text-sm icon-btn"
             @click.stop="prevMonth"
           >
             <uil:angle-double-left />
@@ -139,7 +139,7 @@ const setSelectedDate = (day: TDay) => {
             {{ curMonth }} {{ curYear }}
           </span>
           <button
-            class="icon-btn text-sm"
+            class="text-sm icon-btn"
             @click.stop="nextMonth"
           >
             <uil:angle-double-right />

@@ -1,29 +1,27 @@
 <script setup lang="ts">
-import { defineEmit, defineProps } from 'vue'
+import { defineEmits, defineProps, withDefaults } from 'vue'
 
-defineProps({
-  value: {
-    type: Boolean,
-    default: false,
-  },
-  name: {
-    type: String,
-    default: 'checkbox',
-  },
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
-  checked: {
-    type: Boolean,
-  },
+interface Props {
+  value?: boolean
+  name?: string
+  disabled?: boolean
+  checked?: boolean
+}
+
+withDefaults(defineProps<Props>(), {
+  value: false,
+  name: 'checkbox',
 })
 
-defineEmit(['change', 'input', 'blur'])
+defineEmits<{
+  (e: 'change', value: Event): void
+  (e: 'input', value: Event): void
+  (e: 'blur', value: FocusEvent): void
+}>()
 </script>
 
 <template>
-  <label class="inline-flex items-center text-black select-none" :class="{'text-gray-300': disabled}">
+  <label class="text-black inline-flex items-center select-none" :class="{'text-gray-300': disabled}">
     <span class="checkbox__input">
       <input
         type="checkbox"

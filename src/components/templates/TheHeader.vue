@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import { defineProps } from 'vue'
 import { useAuth } from '@/logics/auth'
-
-defineProps({})
 
 const { isAuthorized } = useAuth()
 
@@ -25,19 +22,13 @@ const menuList = [
 
 <template>
   <header
-    class="
-      fixed top-0 inset-x-0
-      border-b border-$shared-bc
-      bg-$shared-bg
-      px-2 z-50
-      h-$header-height
-    "
+    class="bg-$shared-bg border-b border-$shared-bc h-$header-height px-2 inset-x-0 top-0 z-50 fixed"
   >
-    <div class="container max-w-screen-xl mx-auto h-$header-height flex items-center justify-between text-primary">
+    <div class="container flex h-$header-height mx-auto max-w-screen-xl text-primary items-center justify-between">
       <AppPopover class="icon-btn">
         <ic:round-menu />
         <template #content>
-          <ul class="rounded border bg-white -mt-2 ml-2 py-1 text-base text-black">
+          <ul class="bg-white border rounded -mt-2 text-base text-black ml-2 py-1">
             <li v-for="(menu, index) in menuList" :key="index" class="py-2.5 px-6 active:text-primary">
               {{ menu.title }}
             </li>

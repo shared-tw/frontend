@@ -4,8 +4,6 @@ import { useAuth } from '@/logics/auth'
 import { ref } from 'vue'
 import { syncRef } from '@vueuse/core'
 
-import type { LoginArgs } from '@/types'
-
 const { login } = useAuth()
 
 const schema = {
@@ -15,7 +13,7 @@ const schema = {
 
 const isLoading = ref(false)
 
-function onSubmit(values: LoginArgs) {
+function onSubmit(values: any) {
   const { loading } = login(values)
   syncRef(loading, isLoading)
 }

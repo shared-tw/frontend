@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { ref, defineProps } from 'vue'
-import type { PropType } from 'vue'
+import { ref, defineProps, withDefaults } from 'vue'
 import { useEventListener } from '@vueuse/core'
 
 // todo: 針對 inline-flex parent 優化
@@ -12,12 +11,14 @@ type Placement =
   'top-left' |
   'top-right'
 
-const props = defineProps({
-  placement: {
-    type: String as PropType<Placement>,
-    default: 'bottom-left',
-  },
+interface Props {
+  placement?: Placement
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  placement: 'bottom-left',
 })
+
 const defaultPosition = props.placement
   .split('-')
   .map((placement, index) => {
@@ -53,9 +54,9 @@ useEventListener(document, 'touchstart', handleOutsideClick)
 </script>
 
 <template>
-  <div ref="popover" tabindex="0" class="relative outline-none" @click="openPopover">
+  <div ref="popover" tabindex="0" class="outline-none relative" @click="openPopover">
     <slot />
-    <div v-if="isShow" class="absolute w-max z-50" :class="defaultPosition">
+    <div v-if="isShow" class="w-max z-50 absolute" :class="defaultPosition">
       <div @click.stop="closePopover">
         <slot name="content" />
       </div>
