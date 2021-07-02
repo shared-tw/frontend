@@ -24,17 +24,6 @@ export default defineConfig({
           componentPrefix: '',
         }),
       ],
-      // Allow subdirectories as namespace prefix for components.
-      directoryAsNamespace: true,
-      // Subdirectory paths for ignoring namespace prefixes
-      // works when `directoryAsNamespace: true`
-      globalNamespaces: [
-        'atoms',
-        'global',
-        'molecules',
-        'organisms',
-        'templates',
-      ],
     }),
     WindiCSS(),
   ],
