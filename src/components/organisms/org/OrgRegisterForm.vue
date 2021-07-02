@@ -42,7 +42,7 @@ function onSubmit(values: any) {
       label="帳號名稱"
       placeholder="username"
       autocomplete="username"
-      required
+      :required="true"
     />
     <FormInput
       name="email"
@@ -50,7 +50,7 @@ function onSubmit(values: any) {
       label="電子郵件信箱"
       placeholder="user@example.com"
       autocomplete="email"
-      required
+      :required="true"
     />
     <FormInput
       name="password"
@@ -58,7 +58,7 @@ function onSubmit(values: any) {
       label="密碼"
       placeholder="password"
       autocomplete="new-password"
-      required
+      :required="true"
     />
     <FormInput
       name="passwordConfirm"
@@ -66,7 +66,7 @@ function onSubmit(values: any) {
       label="確認密碼"
       placeholder="password"
       autocomplete="current-password"
-      required
+      :required="true"
     />
     <FormInput
       name="tel"
@@ -74,13 +74,13 @@ function onSubmit(values: any) {
       label="聯絡電話（不含『 - 』）"
       placeholder="0901234564"
       autocomplete="tel"
-      required
+      :required="true"
     />
     <FormSelect
       name="orgType"
       label="單位類型"
       :children="orgTypes"
-      required
+      :required="true"
     />
     <FormInput
       v-if="values.orgType === 'other'"
@@ -92,25 +92,25 @@ function onSubmit(values: any) {
       name="orgName"
       type="text"
       label="單位正式名稱"
-      required
+      :required="true"
     />
     <FormSelect
       name="orgCity"
       label="單位縣市"
       :children="TWCountyList"
-      required
+      :required="true"
     />
     <FormInput
       name="orgAddress"
       type="text"
       label="單位地址"
-      required
+      :required="true"
     />
     <FormInput
       name="orgOfficeHours"
       type="text"
       label="聯絡時間 (ex. 10:00~17:00)"
-      required
+      :required="true"
     />
     <FormSelect
       name="otherContactType"
@@ -127,7 +127,7 @@ function onSubmit(values: any) {
       name="invoice"
       label="是否需要收據"
       :children="needInvoiceItems"
-      required
+      :required="true"
     />
     <RegisterActions :is-loading="isLoading" :meta="meta" />
   </Form>

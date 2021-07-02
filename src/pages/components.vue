@@ -20,7 +20,7 @@
       <AppCheckbox>
         Check
       </AppCheckbox>
-      <FormCheckbox name="checkbox" label="Check" disabled />
+      <FormCheckbox name="checkbox" label="Check" :disabled="true" />
       <AppInput />
     </div>
     <div class="space-y-2">

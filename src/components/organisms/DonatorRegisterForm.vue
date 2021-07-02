@@ -36,7 +36,7 @@ function onSubmit(values: any) {
       label="帳號名稱"
       placeholder="username"
       autocomplete="username"
-      required
+      :required="true"
     />
     <FormInput
       name="email"
@@ -44,7 +44,7 @@ function onSubmit(values: any) {
       label="電子郵件信箱"
       placeholder="user@example.com"
       autocomplete="email"
-      required
+      :required="true"
     />
     <FormInput
       name="password"
@@ -52,7 +52,7 @@ function onSubmit(values: any) {
       label="密碼"
       placeholder="password"
       autocomplete="new-password"
-      required
+      :required="true"
     />
     <FormInput
       name="passwordConfirm"
@@ -60,7 +60,7 @@ function onSubmit(values: any) {
       label="確認密碼"
       placeholder="password"
       autocomplete="current-password"
-      required
+      :required="true"
     />
     <FormInput
       name="tel"
@@ -68,7 +68,7 @@ function onSubmit(values: any) {
       label="聯絡電話（不含『 - 』）"
       placeholder="0901234564"
       autocomplete="tel"
-      required
+      :required="true"
     />
     <FormSelect
       name="otherContactType"
@@ -86,7 +86,7 @@ function onSubmit(values: any) {
       name="invoice"
       label="是否需要收據"
       :children="needInvoiceItems"
-      required
+      :required="true"
     />
     <FormActions
       button-name="註冊"

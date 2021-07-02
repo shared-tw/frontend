@@ -21,7 +21,7 @@ function onSubmit(values: any) {
       label="電子郵件信箱"
       placeholder="user@example.com"
       autocomplete="email"
-      required
+      :required="true"
     />
     <div class="flex mb-4 justify-between items-center">
       <router-link to="/login" class="text-sm underline">
