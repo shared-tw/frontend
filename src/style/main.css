@@ -10,3 +10,20 @@ html {
   background-color: var(--shared-bg);
   padding-top: var(--header-height);
 }
+
+.btn {
+  @apply
+    inline-flex px-3 py-2
+    rounded-full bg-primary
+    text-white text-sm font-medium;
+  &:hover {
+    @apply
+      bg-primary-dark;
+  }
+  &-outline {
+    @apply
+      bg-white
+      border border-primary-medium
+      text-primary-dark
+  }
+}

@@ -22,10 +22,10 @@ const menuList = [
 
 <template>
   <header
-    class="bg-$shared-bg border-b border-$shared-bc h-$header-height px-2 inset-x-0 top-0 z-50 fixed"
+    class="bg-$shared-bg h-$header-height px-2 inset-x-0 top-0 z-50 fixed shadow"
   >
     <div class="container flex h-$header-height mx-auto max-w-screen-xl text-primary items-center justify-between">
-      <AppPopover class="icon-btn">
+      <AppPopover class="icon-btn text-black">
         <ic:round-menu />
         <template #content>
           <ul class="bg-white border rounded -mt-2 text-base text-black ml-2 py-1">
@@ -35,7 +35,7 @@ const menuList = [
           </ul>
         </template>
       </AppPopover>
-      <AppLogo class="h-55px" />
+      <AppLogo class="h-55px flex-1" />
       <div :class="{'opacity-0 pointer-events-none': $route.path === '/login'}">
         <button v-if="isAuthorized" class="icon-btn">
           <ic:round-account-circle />

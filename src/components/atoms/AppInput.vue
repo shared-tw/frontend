@@ -28,8 +28,8 @@ withDefaults(defineProps<Props>(), {
 })
 
 defineEmits<{
-  (e: 'input', value: Event): void
-  (e: 'blue', value: FocusEvent): void
+  (e: 'change', value: Event): void
+  (e: 'blur', value: FocusEvent): void
   (e: 'click', value: MouseEvent): void
 }>()
 

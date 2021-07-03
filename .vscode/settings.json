@@ -20,7 +20,7 @@
     "strings": true
   },
   "windicss.enableCodeFolding": false,
-  "windicss.sortOnSave": true,
+  "windicss.sortOnSave": false,
   "[vue]": {
     "editor.defaultFormatter": "dbaeumer.vscode-eslint"
   }

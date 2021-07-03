@@ -5,9 +5,28 @@ export default defineConfig({
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#14B8A6',
-          light: '#C6F2EA',
-          dark: '#159385',
+          lightest: '#E6F8F4',
+          light: '#C1F5EC',
+          medium: '#78E7D8',
+          DEFAULT: '#0EC4BA',
+          dark: '#00828A',
+        },
+        negative: {
+          lightest: '#E6F8F4',
+          light: '#C1F5EC',
+          medium: '#78E7D8',
+          DEFAULT: '#FE7697',
+          dark: '#FF426F',
+        },
+        blue: {
+          lightest: '#F8F9F9',
+          darkest: '#2C3E50',
+        },
+        gray: {
+          lightest: '#F1F1F2',
+          light: '#E4E5E7',
+          DEFAULT: '#D1D4D6',
+          dark: '#A8AEB3',
         },
         secondary: '#17A2B8',
         line: '#00B900',

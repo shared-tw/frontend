@@ -26,6 +26,7 @@ declare module 'vue' {
     ConfirmModel: typeof import('./src/components/organisms/ConfirmModel.vue')['default']
     DonateSchedule: typeof import('./src/components/organisms/DonateSchedule.vue')['default']
     DonatorRegisterForm: typeof import('./src/components/organisms/DonatorRegisterForm.vue')['default']
+    'FaSolid:bars': typeof import('virtual:vite-icons/fa-solid/bars')['default']
     FlashMessage: typeof import('./src/components/global/FlashMessage.vue')['default']
     'Fluent:checkboxChecked20Filled': typeof import('virtual:vite-icons/fluent/checkbox-checked20-filled')['default']
     'Fluent:checkboxUnchecked20Regular': typeof import('virtual:vite-icons/fluent/checkbox-unchecked20-regular')['default']
