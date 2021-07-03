@@ -10,7 +10,7 @@ type TDay = {
 }
 
 interface Props {
-  modelValue: string
+  modelValue?: string
   format?: string
 }
 

@@ -1,6 +1,8 @@
-import { API_ENDPOINT } from '@/constants'
+// import { API_ENDPOINT } from '@/constants'
 import { axios } from '@/logics/axios'
 import { AuthenticationApi, RegisterApi, PublicApi, OrganizationApi } from './generate'
+
+const API_ENDPOINT = 'https://shared-tw.herokuapp.com'
 
 export const authApi = new AuthenticationApi(undefined, API_ENDPOINT)
 export const registerApi = new RegisterApi(undefined, API_ENDPOINT)

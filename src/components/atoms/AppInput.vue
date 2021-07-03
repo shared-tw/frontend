@@ -17,6 +17,7 @@ interface Props {
   autocomplete?: string
   disabled?: boolean
   required?: boolean
+  size?: 'sm'
 }
 
 withDefaults(defineProps<Props>(), {
@@ -43,8 +44,9 @@ defineEmits<{
     :autocomplete="autocomplete"
     :placeholder="placeholder"
     :disabled="disabled"
-    class="border border-tansparent rounded-md outline-none w-full py-2 px-3 focus:border-gray-400"
+    class="d-input"
     :class="[
+      {'d-input-sm': size === 'sm'},
       {'border-red-400': error},
       $attrs.class
     ]"

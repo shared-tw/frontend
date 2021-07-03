@@ -1,7 +1,4 @@
 <template>
-  <TheHeader />
-  <AppContainer>
-    <router-view />
-  </AppContainer>
+  <router-view />
   <FlashMessage />
 </template>

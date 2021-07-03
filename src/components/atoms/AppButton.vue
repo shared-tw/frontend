@@ -1,17 +1,29 @@
 <script setup lang="ts">
-import { defineProps } from 'vue'
+import { defineProps, defineEmits, computed } from 'vue'
 
-defineProps<{
-  outline: boolean
-  size: 'big'
+const props = defineProps<{
+  inline?: boolean
+  outline?: boolean
+  light?: boolean
+  size?: 'big'
 }>()
+
+const linkClass = computed(() => ({
+  'btn': !props.inline,
+  'btn-outline': props.outline,
+  'btn-light': props.light,
+  'text-sm underline': props.inline,
+  'btn-large': props.size === 'big',
+}))
+
+defineEmits(['click'])
 
 </script>
 
 <template>
   <button
-    class="text-white rounded-full bg-primary"
-    :class="{'btn-outline': outline}"
+    :class="linkClass"
+    @click="$emit('click', $event)"
   >
     <div v-if="$slots.icon" class="inline-block mr-1">
       <slot name="icon" />

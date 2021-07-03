@@ -25,7 +25,3 @@ const isActive = ref(false)
     :data="props.proccess"
   />
 </template>
-
-<style lang="postcss">
-
-</style>

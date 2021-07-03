@@ -10,9 +10,9 @@ const allCheckedItems = useStorage<Record<string, number[]>>('checked-apply-item
 export function useApply() {
   const route = useRoute()
   const router = useRouter()
-  const id = route.query.id as string
+  const { org } = route.params
 
-  const supplyInfo = supplyInfos.find(item => item.id === id)!
+  const supplyInfo = supplyInfos.find(item => item.id === org)!
 
   if (!supplyInfo) {
     router.push('/')

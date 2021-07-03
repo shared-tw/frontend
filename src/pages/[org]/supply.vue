@@ -1,0 +1,3 @@
+<template>
+  <ApplySupply />
+</template>

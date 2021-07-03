@@ -35,23 +35,17 @@ const handleMinus = () => {
 </script>
 
 <template>
-  <div class="inline-flex">
-    <AppInput
-      type="button"
-      value="-"
-      class="rounded-r-none rounded-5 h-7 leading-none py-0 px-0 w-6"
-      @click="handleMinus"
-    />
+  <div class="flex justify-between p-1.5 border border-gray-300 rounded text-primary-dark">
+    <button type="button" class="flex items-center justify-center w-6 h-6 font-bold rounded rounded-5 bg-primary-light font-blod" @click=" handleMinus">
+      <mdi-light:minus />
+    </button>
     <AppInput
       type="number"
       :value="value"
-      class="rounded-none h-7 text-center leading-none py-0 px-0 w-7"
+      class="w-6 h-6 px-0 py-0 leading-none text-center border-none rounded-none text-darkblue"
     />
-    <AppInput
-      type="button"
-      value="+"
-      class="rounded-l-none h-7 leading-none py-0 px-0 w-6"
-      @click="handleAdd"
-    />
+    <button type="button" class="flex items-center justify-center w-6 h-6 font-bold rounded rounded-5 bg-primary-light font-blod" @click="handleAdd">
+      <mdi-light:plus />
+    </button>
   </div>
 </template>

@@ -1,3 +1,5 @@
 <template>
-  <ApplySupply />
+  <WithHeader>
+    <ApplySupply />
+  </WithHeader>
 </template>

@@ -16,22 +16,24 @@ defineProps({
 
 <template>
   <div class="toolbar">
-    <div class="max-w-screen-xl mx-auto flex items-center justify-between">
-      <span class="px-2">已勾選 {{ checkedNum }} 項</span>
-      <div class="space-x-2">
-        <AppLink to="/" outline>
-          取消
-        </AppLink>
-        <AppButton :disabled="isDisabled">
-          確認申請
-        </AppButton>
-      </div>
+    <span class="text-gray-dark">
+      已選擇
+      <span :class="{'text-primary': checkedNum}">{{ checkedNum }}</span>
+      項
+    </span>
+    <div class="space-x-2">
+      <AppButton :disabled="isDisabled">
+        確認申請
+      </AppButton>
     </div>
   </div>
 </template>
 
 <style lang="postcss">
 .toolbar {
-  @apply fixed bg-white inset-x-0 bottom-0 py-2 px-3 border;
+  @apply flex items-center justify-between
+    py-5 px-4 box-shaodw fixed bottom-0 left-0 right-0;
+  box-shadow: 0px -2px 4px rgba(0, 138, 138, 0.05), 0px -4px 6px rgba(0, 138, 138, 0.05);
 }
+/* @apply fixed bg-white inset-x-0 bottom-0 py-2 px-3 border; */
 </style>

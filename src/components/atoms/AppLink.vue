@@ -6,7 +6,8 @@ interface Props {
   href?: string
   outline?: boolean
   inline?: boolean
-  size?: 'sm'
+  light?: boolean
+  size?: 'big'
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -19,8 +20,8 @@ const props = withDefaults(defineProps<Props>(), {
 const linkClass = computed(() => ({
   'btn': !props.inline,
   'btn-outline': props.outline,
+  'btn-light': props.light,
   'text-sm underline': props.inline,
-  'text-sm px-2.5 py-2': props.size === 'sm',
 }))
 
 </script>

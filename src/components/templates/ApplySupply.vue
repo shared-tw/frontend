@@ -10,9 +10,10 @@ const {
 </script>
 
 <template>
-  <main class="pb-12">
+  <ApplyHeader :name="supplyInfo.organization.name" />
+  <AppContainer class="pt-6">
     <OrgInfoNavBar :org="supplyInfo.organization" />
     <ApplySupplyList :list="supplyInfo.items" />
-  </main>
+  </AppContainer>
   <ApplyToolbar :checked-num="checkedItemLen" :is-disabled="isDisabled" />
 </template>
