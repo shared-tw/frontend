@@ -44,6 +44,7 @@ declare module 'vue' {
     JamCloseCircleF: typeof import('virtual:vite-icons/jam/close-circle-f')['default']
     LoginForm: typeof import('./src/components/organisms/LoginForm.vue')['default']
     LoginPage: typeof import('./src/components/templates/LoginPage.vue')['default']
+    'Mdi:close': typeof import('virtual:vite-icons/mdi/close')['default']
     'Mdi:loading': typeof import('virtual:vite-icons/mdi/loading')['default']
     'MdiLight:delete': typeof import('virtual:vite-icons/mdi-light/delete')['default']
     'MdiLight:minus': typeof import('virtual:vite-icons/mdi-light/minus')['default']

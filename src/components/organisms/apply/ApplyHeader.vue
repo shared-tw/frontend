@@ -9,7 +9,7 @@ defineProps({
 
 <template>
   <header class="header">
-    <AppLink to="/" inline class="icon-btn text-black z-1">
+    <AppLink to="/" inline class="icon-btn text-black z-1 text-xl">
       <template #icon>
         <uil:angle-left />
       </template>
