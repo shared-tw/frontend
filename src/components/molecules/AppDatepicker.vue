@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, defineProps, ref, defineEmits, withDefaults } from 'vue'
+import { computed, ref } from 'vue'
 import dayjs, { Dayjs } from 'dayjs'
 
 type TDay = {

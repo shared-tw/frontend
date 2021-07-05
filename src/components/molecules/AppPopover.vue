@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, defineProps, withDefaults } from 'vue'
+import { ref } from 'vue'
 import { useEventListener } from '@vueuse/core'
 
 // todo: 針對 inline-flex parent 優化

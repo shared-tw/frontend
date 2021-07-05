@@ -1,15 +1,16 @@
 {
   "Vue setup ts": {
-    "prefix": "vue",
-    "body": [
-      "<script setup lang=\"ts\">",
-      "import { defineProps } from 'vue'\n",
-      "defineProps({$2})\n",
-      "</script>\n",
-      "<template>",
-      "\t$1",
-      "</template>\n"
-    ],
-    "description": "Vue SFC setup typescript Template"
-  }
+		"prefix": "vue",
+		"body": [
+			"<script setup lang=\"ts\">",
+			"import { ref } from 'vue'\n",
+			"defineProps<{$2}>()\n\n",
+      "const a = ref($3)\n",
+			"</script>\n",
+			"<template>",
+			"\t$1",
+			"</template>\n"
+		],
+		"description": "Vue SFC setup typescript Template"
+	}
 }

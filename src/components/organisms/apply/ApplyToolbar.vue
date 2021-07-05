@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps, ref, watch } from 'vue'
+import { ref, watch } from 'vue'
 import { useApply } from '@/logics/apply'
 
 const props = defineProps({

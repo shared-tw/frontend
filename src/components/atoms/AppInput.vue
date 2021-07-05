@@ -5,9 +5,6 @@ export default {
 </script>
 
 <script setup lang="ts">
-// eslint-disable-next-line import/first
-import { defineEmits, defineProps, withDefaults } from 'vue'
-
 interface Props {
   id?: string
   placeholder?: string

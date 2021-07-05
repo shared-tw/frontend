@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { defineProps, withDefaults } from 'vue'
 
 import type { FormContext } from 'vee-validate'
 import type { UnRef, LinkProp } from '@/types'

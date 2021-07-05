@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { defineProps } from 'vue'
 import { Field } from 'vee-validate'
 import type { PropType } from 'vue'
 import type { InputChildren } from '@/types'

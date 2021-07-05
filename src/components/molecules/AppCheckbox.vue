@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { defineEmits, defineProps, withDefaults } from 'vue'
 
 interface Props {
   value?: boolean

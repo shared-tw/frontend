@@ -1,16 +1,11 @@
 <script setup lang="ts">
-import { defineProps } from 'vue'
 import { useApply } from '@/logics/apply'
 
 import type { RequiredItem } from '@/api'
 
 const { changeItem, isChecked } = useApply()
 
-interface Props {
-  item: RequiredItem
-}
-
-defineProps<Props>()
+defineProps<{ item: RequiredItem }>()
 
 </script>
 

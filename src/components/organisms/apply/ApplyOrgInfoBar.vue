@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { defineProps } from 'vue'
 import { orgTypeNames, cityNames } from '@/data'
 
 import type { OrganizationSummary } from '@/api'
