@@ -1,28 +1,31 @@
 <script setup lang="ts">
 import { defineProps, toRefs, computed } from 'vue'
+import { cityNames } from '@/data'
 
-import type { TSupplyInfo } from '@/types'
+import type { GroupedRequiredItems } from '@/api'
 
 interface Props {
-  supplyInfo: TSupplyInfo
+  org: GroupedRequiredItems
 }
 
 const props = defineProps<Props>()
 
 const {
-  id,
-  organization,
-  items,
-} = toRefs(props.supplyInfo)
+  name,
+  city,
+} = toRefs(props.org.organization)
 
-const total = computed(() => items.value.length)
+const total = computed(() => props.org.items?.length)
 
-const supplyNames = ['N95', '防護服', '醫療器材']
+const supplyNames = computed(() => props.org.items?.map(i => i.name))
 
 const supplyItemsText = computed(() => {
+  if (!supplyNames.value) return
   let text = ''
-  text += supplyNames.slice(0, 3).join('、')
-  text += supplyNames.length > 3 ? '...等' : ''
+  text += supplyNames.value.slice(0, 3).join('、')
+  if (text.length > 10) {
+    text = `${text.slice(0, 10)}...等`
+  }
   return text
 })
 </script>
@@ -31,10 +34,10 @@ const supplyItemsText = computed(() => {
   <AppCard>
     <div class="flex space-x-2 mb-2 items-center">
       <h2 class="font-bold flex-1 text-xl">
-        {{ organization.name }}
+        {{ name }}
       </h2>
       <AppLabel>
-        {{ organization.city }}
+        {{ cityNames[city] }}
       </AppLabel>
     </div>
     <div class="text-sm mb-4">
@@ -44,7 +47,7 @@ const supplyItemsText = computed(() => {
       <span class="text-sm px-1 text-gray-400">
         共有 {{ total }} 件需求
       </span>
-      <AppLink :to="`/${id}/supply`" outline>
+      <AppLink :to="`/${name}/supply`" outline>
         查看需求
       </AppLink>
     </div>

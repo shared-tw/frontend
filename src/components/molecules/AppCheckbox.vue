@@ -21,7 +21,7 @@ defineEmits<{
 </script>
 
 <template>
-  <label class="text-black inline-flex items-center select-none" :class="{'text-gray-300': disabled}">
+  <label class="inline-flex items-center select-none" :class="{'text-gray-300': disabled}">
     <span class="checkbox__input">
       <input
         type="checkbox"
@@ -33,8 +33,8 @@ defineEmits<{
         @input="$emit('input', $event)"
       >
       <span class="checkbox__control">
-        <fluent:checkbox-checked-20-filled class="checked" />
-        <fluent:checkbox-unchecked-20-regular />
+        <uim:check-circle class="checked text-primary" />
+        <uim:circle class="text-gray" />
       </span>
     </span>
     <slot />
@@ -43,7 +43,7 @@ defineEmits<{
 
 <style lang="postcss">
 .checkbox__input {
-  @apply inline-block relative w-32px h-32px mr-1 align-middle;
+  @apply inline-block relative w-30px h-30px mr-1 align-middle;
   > * {
     @apply absolute inset-0 w-full h-full;
   }
@@ -61,6 +61,9 @@ defineEmits<{
     @apply opacity-0 m-0;
     &:checked + .checkbox__control .checked {
       @apply opacity-100;
+    }
+    &:checked + .checkbox__control svg {
+      @apply opacity-0;
     }
     &:disabled + .checkbox__control {
       @apply text-gray-300;

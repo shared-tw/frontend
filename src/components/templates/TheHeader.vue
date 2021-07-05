@@ -22,7 +22,7 @@ const menuList = [
 
 <template>
   <header
-    class="bg-white h-$header-height px-2 inset-x-0 top-0 z-50 fixed shadow"
+    class="bg-white h-$header-height px-2 inset-x-0 top-0 z-20 fixed shadow"
   >
     <div class="container flex h-$header-height mx-auto max-w-screen-xl text-primary items-center justify-between">
       <AppPopover class="icon-btn text-black">

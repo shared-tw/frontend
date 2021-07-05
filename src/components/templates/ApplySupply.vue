@@ -10,10 +10,12 @@ const {
 </script>
 
 <template>
-  <ApplyHeader :name="supplyInfo.organization.name" />
-  <AppContainer class="pt-6">
-    <OrgInfoNavBar :org="supplyInfo.organization" />
-    <ApplySupplyList :list="supplyInfo.items" />
-  </AppContainer>
-  <ApplyToolbar :checked-num="checkedItemLen" :is-disabled="isDisabled" />
+  <div v-if="supplyInfo">
+    <ApplyHeader :name="supplyInfo.organization.name" />
+    <AppContainer>
+      <ApplyOrgInfoBar :org="supplyInfo.organization" />
+      <ApplySupplyList v-if="supplyInfo.items" :items="supplyInfo.items" />
+    </AppContainer>
+    <ApplyToolbar :checked-num="checkedItemLen" :is-disabled="isDisabled" />
+  </div>
 </template>

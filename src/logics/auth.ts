@@ -82,9 +82,6 @@ export function useAuth() {
   function registerDonator(data: RegisterDonatorArgs) {
     const {
       email,
-      username,
-      password,
-      passwordConfirm,
       tel,
       otherContactType,
       otherContent,
@@ -95,9 +92,6 @@ export function useAuth() {
 
     registerApi.createDonator({
       email,
-      username,
-      password,
-      confirmed_password: passwordConfirm,
       phone: tel,
       other_contact_method: otherContactType,
       other_contact: otherContent || '',
@@ -107,11 +101,6 @@ export function useAuth() {
       loading.value = false
 
       flash('註冊成功', EmitTypes.Success)
-
-      return login({
-        username,
-        password,
-      })
     }).catch((err: Error) => {
       loading.value = false
       error.value = err.message

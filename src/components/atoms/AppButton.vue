@@ -5,7 +5,7 @@ const props = defineProps<{
   inline?: boolean
   outline?: boolean
   light?: boolean
-  size?: 'big'
+  size?: 'large'
 }>()
 
 const linkClass = computed(() => ({
@@ -13,7 +13,7 @@ const linkClass = computed(() => ({
   'btn-outline': props.outline,
   'btn-light': props.light,
   'text-sm underline': props.inline,
-  'btn-large': props.size === 'big',
+  'btn-large': props.size === 'large',
 }))
 
 defineEmits(['click'])

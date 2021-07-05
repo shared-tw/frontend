@@ -29,7 +29,8 @@ html {
       inline-block text-center px-3 py-2
       rounded-full bg-primary
       text-white text-sm font-medium
-      transition-colors duration-100;
+      transition-colors duration-100
+      focus:outline-none;
     &:disabled {
       @apply bg-gray-light text-white;
     }

@@ -27,6 +27,7 @@ export default defineConfig({
           light: '#E4E5E7',
           DEFAULT: '#D1D4D6',
           dark: '#A8AEB3',
+          darker: '#889197',
         },
         secondary: '#17A2B8',
         line: '#00B900',

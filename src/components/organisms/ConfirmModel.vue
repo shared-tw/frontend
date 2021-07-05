@@ -1,35 +1,56 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-const isOpen = ref(false)
+import { defineProps, defineEmits, ref } from 'vue'
+
+defineProps<{
+  open: boolean
+}>()
+
+const emit = defineEmits<{
+  (e: 'update:open', value: boolean): void
+  (e: 'confirm', value: boolean): void
+}>()
+
+const checked = ref(false)
+
+function hadnleCheck(e: Event) {
+  const target = e.target as HTMLInputElement
+  checked.value = target.checked
+}
+
+function confirm() {
+  emit('confirm', true)
+  emit('update:open', false)
+}
 </script>
 
 <template>
   <transition name="fade">
-    <div v-if="isOpen" class="relative flex items-center justify-center w-full h-full">
-      <div class="fixed inset-0 bg-black opacity-50 " @click="isOpen=false" />
-      <div
-        class="z-10 flex flex-col items-center justify-center w-full p-6 font-sans font-normal bg-white rounded sm:w-5/6 sm:mx-auto text-darkblue"
-      >
-        <h3 class="relative w-full mb-4 text-xl font-bold text-center">
-          確認送出
-          <span class="absolute right-0 text-base" @click="isOpen=false"><mdi:close /></span>
+    <div v-if="open" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center p-3" @click="$emit('update:open', false)">
+      <div class="z-10 w-full p-6 bg-white rounded-lg sm:w-5/6 sm:mx-auto text-darkblue" @click.stop>
+        <h3 class="flex items-center justify-center mb-4 text-lg font-medium">
+          <span class="text-primary inline-block mr-2 pt-0.5">
+            <uil:info-circle />
+          </span>
+          請提供聯絡資料
         </h3>
-        <p>
-          確認後，我們會將您的聯絡資訊提供給需求方，以利雙方聯繫
+        <p class="mb-6">
+          確認後，我們會將您的聯絡資訊提供給需求方，以利雙方聯繫。
         </p>
-        <div class="flex w-full sm:w-auto mt-9 align-center">
-          <FormCheckbox
+        <div class="flex mb-4">
+          <AppCheckbox
             name="noShow"
-            :value="false"
-            label="以後不在顯示"
-          />
+            :checked="checked"
+            @change="hadnleCheck"
+          >
+            <span :class="{'text-gray': !checked}">以後不在顯示</span>
+          </AppCheckbox>
         </div>
-        <div class="flex justify-end w-full ">
-          <AppButton outline class="text-gray-400 border-gray-300 hover:bg-gray-300 hover:text-white ">
+        <div class="flex justify-end space-x-4">
+          <button outline class="text-primary focus:outline-none px-2 py-1" @click="$emit('update:open', false)">
             取消
-          </AppButton>
-          <AppButton class="ml-3 bg-darkblue hover:bg-blue-900 ">
-            提供聯絡資訊
+          </button>
+          <AppButton size="large" @click="confirm">
+            確認提供
           </AppButton>
         </div>
       </div>
@@ -37,12 +58,14 @@ const isOpen = ref(false)
   </transition>
 </template>
 
-<style scoped>
-.fade-enter-active, .fade-leave-active {
-  transition: opacity .5s ease;
+<style>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.15s linear;
 }
 
-.fade-enter-from, .fade-leave-to {
+.fade-enter-from,
+.fade-leave-to {
   opacity: 0;
 }
 </style>
