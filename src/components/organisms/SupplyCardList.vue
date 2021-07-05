@@ -55,7 +55,7 @@ const selectedType = ref<ListItem[]>([])
 
 function selectCity(city: ListItem) {
   if (selectedCity.value.includes(city)) {
-    selectedCity.value = selectedCity.value.filter(i => i !== city)
+    selectedCity.value = selectedCity.value.filter(i => i.name !== city.name)
   } else {
     selectedCity.value.push(city)
   }
@@ -63,7 +63,7 @@ function selectCity(city: ListItem) {
 
 function selectType(type: ListItem) {
   if (selectedType.value.includes(type)) {
-    selectedType.value = selectedType.value.filter(i => i !== type)
+    selectedType.value = selectedType.value.filter(i => i.name !== type.name)
   } else {
     selectedType.value.push(type)
   }
