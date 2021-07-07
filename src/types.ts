@@ -8,3 +8,8 @@ export type ListItem = {
   name: string
   value: string
 }
+
+export interface LinkProp {
+  content: string
+  href: string
+}
