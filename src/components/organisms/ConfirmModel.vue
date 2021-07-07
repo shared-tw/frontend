@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { noConfirm } from '@/logics/store'
 
 defineProps<{
   open: boolean
@@ -10,11 +10,9 @@ const emit = defineEmits<{
   (e: 'confirm', value: boolean): void
 }>()
 
-const checked = ref(false)
-
 function hadnleCheck(e: Event) {
   const target = e.target as HTMLInputElement
-  checked.value = target.checked
+  noConfirm.value = target.checked
 }
 
 function confirm() {
@@ -39,10 +37,10 @@ function confirm() {
         <div class="flex mb-4">
           <AppCheckbox
             name="noShow"
-            :checked="checked"
+            :checked="noConfirm"
             @change="hadnleCheck"
           >
-            <span :class="{'text-gray': !checked}">以後不在顯示</span>
+            <span :class="{'text-gray': !noConfirm}">以後不在顯示</span>
           </AppCheckbox>
         </div>
         <div class="flex justify-end space-x-4">

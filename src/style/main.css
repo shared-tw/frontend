@@ -10,7 +10,6 @@ html {
 @layer components {
   .d-input {
     @apply
-      appearance-none
       flex w-full py-2 px-3
       bg-white
       border border-gray rounded-md
@@ -27,9 +26,6 @@ html {
       text-white text-sm font-medium
       transition-colors duration-100
       focus:outline-none;
-    &:disabled {
-      @apply bg-gray-light text-white;
-    }
     &:hover {
       @apply bg-primary-dark;
     }
@@ -50,6 +46,9 @@ html {
     }
     &-large {
       @apply px-3 py-2 text-base;
+    }
+    &:disabled {
+      @apply bg-gray-light text-white cursor-not-allowed;
     }
   }
 

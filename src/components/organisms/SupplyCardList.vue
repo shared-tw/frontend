@@ -3,12 +3,9 @@ import { computed, ref } from 'vue'
 import { cityNames } from '@/data'
 import { getDonationItems, OrganizationTypes } from '@/api'
 
-const { items } = getDonationItems()
+import type { ListItem } from '@/types'
 
-type ListItem = {
-  name: string
-  value: string
-}
+const { items } = getDonationItems()
 
 const orgTypeNames = {
   [OrganizationTypes.Hospital]: '醫院',

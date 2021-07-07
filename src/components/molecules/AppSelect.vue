@@ -30,7 +30,6 @@ function handleChange(e: Event) {
   <div
     class="d-input"
     :class="[
-      {'text-gray-dark': !currentValue},
       {'d-input-sm': size === 'sm'},
       {'border-red-400': error},
       $attrs.class
@@ -43,7 +42,7 @@ function handleChange(e: Event) {
       class="w-full h-full outline-none"
       @change="handleChange"
     >
-      <option v-if="placeholder" value="" :disabled="true" :selected="true" class="text-gray-dark">
+      <option v-if="placeholder" value="" :disabled="true" :selected="true">
         {{ placeholder }}
       </option>
       <option v-for="{ name, value } in items" :key="value" :value="value">

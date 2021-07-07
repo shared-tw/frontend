@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 import { useApply } from '@/logics/apply'
+import { noConfirm } from '@/logics/store'
 
 const props = defineProps({
   checkedNum: {
@@ -32,6 +33,14 @@ function sendApply(confirmed: boolean) {
   alert(JSON.stringify(checkedItems.value, null, 2))
 }
 
+function checkNeedConfirm() {
+  if (!noConfirm.value) {
+    openConfirm.value = true
+  } else {
+    sendApply(true)
+  }
+}
+
 </script>
 
 <template>
@@ -45,14 +54,12 @@ function sendApply(confirmed: boolean) {
       <AppButton v-if="isOpen === false" :disabled="isDisabled" size="large" @click="isOpen = true">
         確認申請
       </AppButton>
-      <AppButton v-else :disabled="isDisabled" size="large" @click="openConfirm = true">
+      <AppButton v-else :disabled="isDisabled" size="large" @click="checkNeedConfirm">
         確認送出
       </AppButton>
     </div>
   </div>
-  <AppModal v-model:open="isOpen" name="本次捐贈物資">
-    <SupplyModal />
-  </AppModal>
+  <SupplyModal v-model:open="isOpen" />
   <ConfirmModel v-model:open="openConfirm" @confirm="sendApply" />
 </template>
 

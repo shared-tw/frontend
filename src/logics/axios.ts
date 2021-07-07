@@ -1,5 +1,5 @@
 import Axios from 'axios'
-import { userToken, userRefreshToken } from '@/logics/auth'
+import { userToken } from '@/logics/auth'
 import { authApi } from '@/api'
 
 const axios = Axios.create({
@@ -20,13 +20,11 @@ axios.interceptors.response.use(
     // extracting response and config objects
     const { response, config } = error
     // checking if error is Authorized error
-    if (response.status === 401 && userRefreshToken.value) {
+    if (response.status === 401) {
       // if refresh token exists in local storage proceed
       try {
         // try refreshing token
-        const { data } = await authApi.refreshJwtToken({
-          refresh: userRefreshToken.value,
-        })
+        const { data } = await authApi.refreshJwtToken()
         const accessToken = data.access
         if (accessToken) {
           // if request is successiful and token exists in response data
@@ -37,8 +35,7 @@ axios.interceptors.response.use(
           return axios(config)
         }
       } catch (e) {
-        userToken.value = ''
-        userRefreshToken.value = ''
+        userToken.value = null
         // eslint-disable-next-line no-console
         console.log(e)
       }

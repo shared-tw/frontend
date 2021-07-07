@@ -1,51 +1,47 @@
 import { ContactMethods, OrganizationTypes } from '@/api'
-import { InputChildren } from '@/types'
+import { ListItem } from '@/types'
 
-export const otherContactItems: InputChildren[] = [
+export const otherContactItems: ListItem[] = [
   {
-    text: '無',
-    value: ContactMethods.NotSet,
-  },
-  {
-    text: 'Line',
+    name: 'Line',
     value: ContactMethods.Line,
   },
   {
-    text: 'Facebook',
+    name: 'Facebook',
     value: ContactMethods.Fb,
   },
   {
-    text: 'Email',
+    name: 'Email',
     value: ContactMethods.Email,
   },
 ]
 
-export const needInvoiceItems: InputChildren[] = [
+export const needInvoiceItems: ListItem[] = [
   {
-    text: '是',
+    name: '是',
     value: 'yes',
   },
   {
-    text: '否',
+    name: '否',
     value: 'no',
   },
 ]
 
-export const orgTypes: InputChildren[] = [
+export const orgTypes: ListItem[] = [
   {
-    text: '醫院',
+    name: '醫院',
     value: OrganizationTypes.Hospital,
   },
   {
-    text: '警局',
+    name: '警局',
     value: OrganizationTypes.PoliceStation,
   },
   {
-    text: '消防局',
+    name: '消防局',
     value: OrganizationTypes.FireDepartment,
   },
   {
-    text: '其他',
+    name: '其他',
     value: OrganizationTypes.Other,
   },
 ]

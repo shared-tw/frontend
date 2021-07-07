@@ -61,7 +61,7 @@ const {
       :autocomplete="autocomplete"
       :placeholder="placeholder"
       :error="!!errorMessage"
-      @input="handleChange"
+      @change="handleChange"
       @blur="handleBlur"
     />
     <FormErrorMessage :name="name" />

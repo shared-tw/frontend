@@ -4,27 +4,27 @@ import { syncRef } from '@vueuse/core'
 import { Form } from 'vee-validate'
 import { useAuth } from '@/logics/auth'
 import { ContactMethods } from '@/api'
-import { TWCountyList, otherContactItems, needInvoiceItems, orgTypes, initialValues } from '@/data'
+import { TWCountyList, otherContactItems, orgTypes, initialValues } from '@/data'
 
-import type { ToSchema, RegisterOrgArgs } from '@/types'
+import type { ToSchema } from '@/types'
+import type { OrganizationCreation } from '@/api'
 
 const { registerOrg } = useAuth()
 
-const schema: ToSchema<RegisterOrgArgs> = {
+const schema: ToSchema<OrganizationCreation> = {
   username: 'required',
   email: 'required|email',
   password: 'required|min:8',
-  passwordConfirm: 'required|confirmed:@password',
-  tel: 'required|numeric',
-  orgType: 'required',
-  orgTypeOther: '',
-  orgName: 'required',
-  orgCity: 'required',
-  orgAddress: 'required',
-  orgOfficeHours: 'required',
-  invoice: 'required',
-  otherContactType: '',
-  otherContent: '',
+  confirmed_password: 'required|confirmed:@password',
+  phone: 'required|numeric',
+  type: 'required',
+  type_other: '',
+  name: 'required',
+  city: 'required',
+  address: 'required',
+  office_hours: 'required',
+  other_contact_method: 'required',
+  other_contact: 'required',
 }
 
 const isLoading = ref(false)
@@ -61,7 +61,7 @@ function onSubmit(values: any) {
       :required="true"
     />
     <FormInput
-      name="passwordConfirm"
+      name="confirmed_password"
       type="password"
       label="確認密碼"
       placeholder="password"
@@ -69,7 +69,7 @@ function onSubmit(values: any) {
       :required="true"
     />
     <FormInput
-      name="tel"
+      name="phone"
       type="tel"
       label="聯絡電話（不含『 - 』）"
       placeholder="0901234564"
@@ -77,58 +77,62 @@ function onSubmit(values: any) {
       :required="true"
     />
     <FormSelect
-      name="orgType"
+      name="type"
       label="單位類型"
       :children="orgTypes"
       :required="true"
     />
     <FormInput
       v-if="values.orgType === 'other'"
-      name="orgTypeOther"
+      name="type_other"
       label=""
       placeholder="單位類型"
     />
     <FormInput
-      name="orgName"
+      name="name"
       type="text"
       label="單位正式名稱"
       :required="true"
     />
     <FormSelect
-      name="orgCity"
+      name="city"
       label="單位縣市"
       :children="TWCountyList"
       :required="true"
     />
     <FormInput
-      name="orgAddress"
+      name="address"
       type="text"
       label="單位地址"
       :required="true"
     />
     <FormInput
-      name="orgOfficeHours"
+      name="office_hours"
       type="text"
       label="聯絡時間 (ex. 10:00~17:00)"
       :required="true"
     />
     <FormSelect
-      name="otherContactType"
+      name="other_contact_method"
       label="其他聯絡方式"
       :children="otherContactItems"
-    />
-    <FormInput
-      v-if="values.otherContactType !== ContactMethods.NotSet"
-      name="otherContact"
-      label=""
-      :placeholder="otherContactItems.find(item => item.value === values.otherContactType)?.text || ''"
-    />
-    <FormRadio
-      name="invoice"
-      label="是否需要收據"
-      :children="needInvoiceItems"
       :required="true"
     />
-    <RegisterActions :is-loading="isLoading" :meta="meta" />
+    <FormInput
+      v-if="values.other_contact_method !== ContactMethods.NotSet"
+      name="other_contact"
+      label="聯絡資訊"
+      :placeholder="otherContactItems.find(item => item.value === values.other_contact_method)?.name || ''"
+      :required="true"
+    />
+    <FormActions
+      button-name="註冊"
+      :link="{
+        content: '取消',
+        href: '/login'
+      }"
+      :is-loading="isLoading"
+      :meta="meta"
+    />
   </Form>
 </template>

@@ -3,11 +3,11 @@ import { data, select_columns } from './tw-county-list.json'
 
 export const TWCountyList = data.map((item) => {
   return {
-    text: item[select_columns.indexOf('NAME_2014')],
+    name: item[select_columns.indexOf('NAME_2014')],
     value: item[select_columns.indexOf('ISO3166')],
   }
 }).filter((item) => {
-  return !!item.text
+  return !!item.name
 })
 
 const cityNames: Record<string, string> = {}
@@ -20,10 +20,9 @@ const orgTypeNames = {
 } as Record<string, string>
 
 TWCountyList.forEach((i) => {
-  cityNames[i.value] = i.text
+  cityNames[i.value] = i.name
 })
 
 export { cityNames, orgTypeNames }
 
-export * from './supply'
 export * from './form'

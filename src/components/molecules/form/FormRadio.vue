@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Field } from 'vee-validate'
 import type { PropType } from 'vue'
-import type { InputChildren } from '@/types'
+import type { ListItem } from '@/types'
 
 defineProps({
   value: {
@@ -25,7 +25,7 @@ defineProps({
     default: false,
   },
   children: {
-    type: Array as PropType<InputChildren[]>,
+    type: Array as PropType<ListItem[]>,
     required: true,
   },
 })
@@ -38,8 +38,8 @@ defineProps({
       <span v-if="required" class="text-red-400">*</span>
     </label>
     <div class="space-x-3">
-      <template v-for="{ value, text } in children" :key="value">
-        <Field :name="name" :label="label" type="radio" :value="value" /> {{ text }}
+      <template v-for="{ value, name } in children" :key="value">
+        <Field :name="name" :label="label" type="radio" :value="value" /> {{ name }}
       </template>
     </div>
     <FormErrorMessage :name="name" />

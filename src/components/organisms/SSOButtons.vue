@@ -2,23 +2,15 @@
 import { useAuth } from '@/logics/auth'
 
 const {
-  loginWithLine,
-  loginWithFacebook,
-  loginWithGoogle,
+  lineLoginUrl,
 } = useAuth()
 
 </script>
 
 <template>
   <div class="space-y-3 py-4 border-t">
-    <AppButton class="w-full bg-line" @click="loginWithLine">
-      Line 登入
-    </AppButton>
-    <AppButton class="w-full bg-facebook" @click="loginWithFacebook">
-      Facebook 登入
-    </AppButton>
-    <AppButton class="w-full bg-google" @click="loginWithGoogle">
-      Google 登入
-    </AppButton>
+    <AppLink class="w-full bg-line" :href="lineLoginUrl" :new-window="false">
+      使用 Line 登入 / 註冊
+    </AppLink>
   </div>
 </template>

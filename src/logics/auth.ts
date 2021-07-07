@@ -2,23 +2,21 @@ import { computed, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStorage } from '@vueuse/core'
 import { authApi, registerApi } from '@/api'
-import { RegisterDonatorArgs, RegisterOrgArgs, LoginArgs } from '@/types'
 import { flash, EmitTypes } from '@/logics/emitter'
 
-import type { JWTToken } from '@/api'
+import type { JWTToken, JWTTokenCreation, DonatorCreation, OrganizationCreation } from '@/api'
 
 export const userId = useStorage<string>('user_id', '')
-export const userToken = useStorage<string>('access_token', '')
-export const userRefreshToken = useStorage<string>('fresh_token', '')
+export const userToken = ref<string | null>(null)
 
 export function useAuth() {
   const router = useRouter()
 
   const isAuthorized = computed(() => {
-    return userToken.value !== ''
+    return !!userToken.value
   })
 
-  function login(user: LoginArgs) {
+  function login(user: JWTTokenCreation) {
     const loading = ref(true)
     const result = ref<JWTToken | null>(null)
     const error = ref<any>(null)
@@ -27,10 +25,9 @@ export function useAuth() {
       username: user.username,
       password: user.password,
     }).then(({ data }) => {
-      const { access, refresh } = data
+      const { access } = data
 
       userToken.value = access
-      userRefreshToken.value = refresh || ''
 
       result.value = data
       loading.value = false
@@ -54,21 +51,10 @@ export function useAuth() {
   }
 
   // handle SSO logins
-  function loginWithLine() {
-    window.open('https://shared-tw.herokuapp.com/oauth/line/login?next=/oauth/interaction')
-  }
-  function loginWithFacebook() {
-    // eslint-disable-next-line no-alert
-    alert('Login with Facebook')
-  }
-  function loginWithGoogle() {
-    // eslint-disable-next-line no-alert
-    alert('Login with Google')
-  }
+  const lineLoginUrl = 'https://shared-tw.icu/api/oauth/line/login?next=/oauth/interaction'
 
   function logout() {
     userToken.value = ''
-    userRefreshToken.value = ''
     router.push('/')
 
     flash('已登出', EmitTypes.Success)
@@ -79,23 +65,11 @@ export function useAuth() {
     alert(email)
   }
 
-  function registerDonator(data: RegisterDonatorArgs) {
-    const {
-      email,
-      tel,
-      otherContactType,
-      otherContent,
-    } = data
-
+  function registerDonator(data: DonatorCreation) {
     const loading = ref(true)
     const error = ref<any>(null)
 
-    registerApi.createDonator({
-      email,
-      phone: tel,
-      other_contact_method: otherContactType,
-      other_contact: otherContent || '',
-    }).then(({ data }) => {
+    registerApi.createDonator(data).then(({ data }) => {
       const { id } = data
       userId.value = `${id}`
       loading.value = false
@@ -117,40 +91,16 @@ export function useAuth() {
     }
   }
 
-  function registerOrg(data: RegisterOrgArgs) {
+  function registerOrg(data: OrganizationCreation) {
     const {
       username,
       password,
-      passwordConfirm,
-      tel,
-      otherContactType,
-      otherContent,
-      orgType,
-      orgTypeOther,
-      orgCity,
-      orgAddress,
-      orgOfficeHours,
-      orgName,
     } = data
 
     const loading = ref(true)
     const error = ref<any>(null)
 
-    registerApi.createOrganization({
-      email: '',
-      username,
-      password,
-      confirmed_password: passwordConfirm,
-      name: orgName,
-      type: orgType,
-      type_other: orgTypeOther || '',
-      city: orgCity,
-      phone: tel,
-      address: orgAddress,
-      office_hours: orgOfficeHours,
-      other_contact_method: otherContactType,
-      other_contact: otherContent || '',
-    }).then(({ data }) => {
+    registerApi.createOrganization(data).then(({ data }) => {
       const { id } = data
       userId.value = `${id}`
       loading.value = false
@@ -179,9 +129,7 @@ export function useAuth() {
 
   return {
     login,
-    loginWithLine,
-    loginWithFacebook,
-    loginWithGoogle,
+    lineLoginUrl,
     logout,
     isAuthorized,
     resetPassword,

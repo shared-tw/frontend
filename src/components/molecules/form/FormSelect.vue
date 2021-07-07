@@ -1,42 +1,24 @@
 <script setup lang="ts">
 import { useField } from 'vee-validate'
-import type { PropType } from 'vue'
-import type { InputChildren } from '@/types'
+import type { ListItem } from '@/types'
 
-const props = defineProps({
-  value: {
-    type: String,
-    default: '',
-  },
-  name: {
-    type: String,
-    required: true,
-  },
-  label: {
-    type: String,
-    required: true,
-  },
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
-  required: {
-    type: Boolean,
-    default: false,
-  },
-  children: {
-    type: Array as PropType<InputChildren[]>,
-    required: true,
-  },
-})
+interface Props {
+  value?: string
+  name: string
+  label: string
+  disabled?: boolean
+  required?: boolean
+  children: ListItem[]
+}
+
+const props = defineProps<Props>()
 
 const {
   value: inputValue,
   errorMessage,
-  handleBlur,
   handleChange,
 } = useField(props.name, undefined, {
-  initialValue: props.value,
+  initialValue: props.value || '',
   label: props.label,
 })
 
@@ -48,19 +30,15 @@ const {
       {{ label }}
       <span v-if="required" class="text-red-400">*</span>
     </label>
-    <select
+    <AppSelect
       :id="name"
       :name="name"
       :value="inputValue"
-      class="border border-tansparent rounded-md outline-none w-full py-2.5 px-3 focus:border-gray-400"
-      :class="{ 'border-red-400': !!errorMessage }"
+      :items="children"
+      :error="!!errorMessage"
+      placeholder="---選擇---"
       @change="handleChange"
-      @blur="handleBlur"
-    >
-      <option v-for="{ value, text } in children" :key="value" :value="value">
-        {{ text }}
-      </option>
-    </select>
+    />
     <FormErrorMessage :name="name" />
   </div>
 </template>

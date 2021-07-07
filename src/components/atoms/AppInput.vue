@@ -47,7 +47,7 @@ defineEmits<{
       {'border-red-400': error},
       $attrs.class
     ]"
-    @input="$emit('change', $event)"
+    @change="$emit('change', $event)"
     @blur="$emit('blur', $event)"
     @click="$emit('click', $event)"
   >

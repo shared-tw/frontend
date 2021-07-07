@@ -4,9 +4,12 @@ import { useAuth } from '@/logics/auth'
 import { ref } from 'vue'
 import { syncRef } from '@vueuse/core'
 
+import type { ToSchema } from '@/types'
+import type { JWTTokenCreation } from '@/api'
+
 const { login } = useAuth()
 
-const schema = {
+const schema: ToSchema<JWTTokenCreation> = {
   username: 'required',
   password: 'required|min:8',
 }

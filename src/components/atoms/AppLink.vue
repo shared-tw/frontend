@@ -8,6 +8,7 @@ interface Props {
   inline?: boolean
   light?: boolean
   size?: 'big'
+  newWindow?: boolean
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -15,6 +16,7 @@ const props = withDefaults(defineProps<Props>(), {
   href: '',
   outline: false,
   inline: false,
+  newWindow: true,
 })
 
 const linkClass = computed(() => ({
@@ -40,7 +42,7 @@ const linkClass = computed(() => ({
   <a
     v-else
     :href="href"
-    target="_blank"
+    :target="newWindow ? '_blank' : undefined"
     rel="noopener"
     :class="linkClass"
   >
