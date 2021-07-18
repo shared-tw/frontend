@@ -27,7 +27,7 @@ axios.interceptors.response.use(
         const { data } = await authApi.refreshJwtToken()
         const accessToken = data.access
         if (accessToken) {
-          // if request is successiful and token exists in response data
+          // if request is successful and token exists in response data
           // store it in local storage
           userToken.value = accessToken
           // with new token retry original request
