@@ -1,16 +1,17 @@
-import { computed, watch } from 'vue'
+import { computed, watch, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useStorage } from '@vueuse/core'
 import { getDonationItems } from '@/api'
+import { needConfirm } from '@/store/apply'
 
 import type { RequiredItem } from '@/api'
 
 const allCheckedItems = useStorage<Record<string, RequiredItem[]>>('checked-apply-items', {})
 
-export function useApply() {
+export function useOrg() {
   const route = useRoute()
   const router = useRouter()
-  const { org } = route.params
+  const { org: orgParam } = route.params
   const { items, error } = getDonationItems()
 
   watch(error, (e) => {
@@ -19,11 +20,11 @@ export function useApply() {
     }
   })
 
-  const supplyInfo = computed(() => {
-    return items.value?.find(item => item.organization.name === org)
+  const org = computed(() => {
+    return items.value?.find(item => item.organization.name === orgParam)
   })
 
-  const orgName = computed(() => supplyInfo.value?.organization.name)
+  const orgName = computed(() => org.value?.organization.name)
 
   const checkedItems = computed(() => {
     if (orgName.value && !allCheckedItems.value[orgName.value]) {
@@ -57,13 +58,30 @@ export function useApply() {
   const checkedItemLen = computed(() => checkedItems.value.length)
   const isDisabled = computed(() => checkedItemLen.value <= 0)
 
+  const isApplyModelOpen = ref(false)
+  const isConfirmModelOpen = ref(false)
+
+  function sendApply() {
+    // eslint-disable-next-line no-alert
+    if (needConfirm.value) {
+      isConfirmModelOpen.value = true
+      return
+    }
+    // eslint-disable-next-line no-alert
+    alert(JSON.stringify(checkedItems.value, null, 2))
+    router.push('/thanks')
+  }
+
   return {
+    org,
     isDisabled,
-    supplyInfo,
+    isApplyModelOpen,
+    isConfirmModelOpen,
     checkedItems,
     checkedItemLen,
     changeItem,
     deleteItem,
     isChecked,
+    sendApply,
   }
 }

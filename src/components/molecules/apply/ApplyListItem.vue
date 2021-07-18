@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { useApply } from '@/logics/apply'
+import { useOrg } from '@/logics/apply'
 
 import type { RequiredItem } from '@/api'
 
-const { changeItem, isChecked } = useApply()
+const { changeItem, isChecked } = useOrg()
 
 defineProps<{ item: RequiredItem }>()
 

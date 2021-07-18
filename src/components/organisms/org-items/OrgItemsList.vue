@@ -2,7 +2,7 @@
 
 import type { RequiredItem } from '@/api'
 
-defineProps<{ items: RequiredItem[] }>()
+defineProps<{ items?: RequiredItem[] }>()
 
 </script>
 

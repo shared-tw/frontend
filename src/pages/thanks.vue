@@ -1,5 +1,5 @@
 <template>
   <WithHeader>
-    <ApplySupply />
+    <ThanksPage />
   </WithHeader>
 </template>

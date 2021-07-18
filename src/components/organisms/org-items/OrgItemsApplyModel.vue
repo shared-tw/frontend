@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { useApply } from '@/logics/apply'
+import { useOrg } from '@/logics/apply'
 import { computed } from 'vue'
 
 const {
   checkedItems,
   deleteItem,
-} = useApply()
+} = useOrg()
 
 const props = defineProps<{ open: boolean }>()
 const emit = defineEmits(['update:open'])

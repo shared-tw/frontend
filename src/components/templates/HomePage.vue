@@ -1,5 +1,5 @@
 <template>
   <main class="py-4">
-    <SupplyCardList />
+    <OrgList />
   </main>
 </template>

@@ -47,7 +47,7 @@ const supplyItemsText = computed(() => {
       <span class="text-sm px-1 text-gray-400">
         共有 {{ total }} 件需求
       </span>
-      <AppLink :to="`/${name}/supply`" outline>
+      <AppLink :to="`/${name}/items`" outline>
         查看需求
       </AppLink>
     </div>
