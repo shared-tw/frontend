@@ -449,6 +449,12 @@ export interface OrganizationCreation {
 export interface OrganizationSummary {
     /**
      * 
+     * @type {number}
+     * @memberof OrganizationSummary
+     */
+    id: number;
+    /**
+     * 
      * @type {string}
      * @memberof OrganizationSummary
      */
