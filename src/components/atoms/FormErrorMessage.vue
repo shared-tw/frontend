@@ -11,5 +11,5 @@ defineProps({
 </script>
 
 <template>
-  <ErrorMessage :name="name" as="p" class="m-0 text-xs bottom-0.5 left-0 text-red-400 absolute" />
+  <ErrorMessage :name="name" as="p" class="m-0 text-xs bottom-0.5 left-0 text-negative absolute" />
 </template>

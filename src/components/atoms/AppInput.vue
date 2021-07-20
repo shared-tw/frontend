@@ -44,7 +44,7 @@ defineEmits<{
     class="d-input"
     :class="[
       {'d-input-sm': size === 'sm'},
-      {'border-red-400': error},
+      {'border-negative': error},
       $attrs.class
     ]"
     @change="$emit('change', $event)"
