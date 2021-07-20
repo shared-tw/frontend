@@ -14,7 +14,7 @@ export function useOrg() {
   const { org: orgParam } = route.params
 
   onMounted(async() => {
-    if (donatorStore.state.orgList) return
+    if (donatorStore.state.orgList.length > 0) return
     await donatorStore.actions.getRequiredItems()
   })
 
