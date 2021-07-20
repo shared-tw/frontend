@@ -12,7 +12,7 @@ const linkClass = computed(() => ({
   'btn': !props.inline,
   'btn-outline': props.outline,
   'btn-light': props.light,
-  'text-sm underline': props.inline,
+  'inline-flex items-center text-sm': props.inline,
   'btn-large': props.size === 'large',
 }))
 
