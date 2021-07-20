@@ -1,11 +1,20 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, onMounted } from 'vue'
 import { cityNames } from '@/data'
-import { getDonationItems, OrganizationTypes } from '@/api'
+import { OrganizationTypes } from '@/api'
+import donatorStore from '@/store/donator'
 
 import type { ListItem } from '@/types'
+import type { GroupedRequiredItems } from '@/api'
 
-const { items } = getDonationItems()
+const items = ref<GroupedRequiredItems[]>()
+
+onMounted(async() => {
+  if (donatorStore.state.orgList.length === 0) {
+    await donatorStore.actions.getRequiredItems()
+  }
+  items.value = donatorStore.state.orgList
+})
 
 const orgTypeNames = {
   [OrganizationTypes.Hospital]: '醫院',

@@ -1,12 +1,11 @@
-import { API_ENDPOINT } from '@/constants'
-import { axios } from '@/logics/axios'
+import config from '@/config'
+import httpClient from '@/api/httpClient'
 import { AuthenticationApi, RegistrationApi, DonatorApi, OrganizationApi } from './generate'
 
-export const authApi = new AuthenticationApi(undefined, API_ENDPOINT)
-export const registerApi = new RegistrationApi(undefined, API_ENDPOINT)
-export const donationApi = new DonatorApi(undefined, API_ENDPOINT)
+export const authApi = new AuthenticationApi(undefined, config.apiUrl, httpClient)
+export const registerApi = new RegistrationApi(undefined, config.apiUrl, httpClient)
+export const donationApi = new DonatorApi(undefined, config.apiUrl, httpClient)
 
-export const orgApi = new OrganizationApi(undefined, API_ENDPOINT, axios)
+export const orgApi = new OrganizationApi(undefined, config.apiUrl, httpClient)
 
 export * from './generate'
-export * from './donation'

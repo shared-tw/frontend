@@ -1,25 +1,24 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { onFlash } from '@/logics/emitter'
-
-import type { Colors } from '@/logics/emitter'
+import { onFlash, FlashMessageTypes } from '@/logics/emitter'
 
 const show = ref(false)
 const message = ref('')
-const emitColor = ref<Colors>()
+const emitColor = ref<FlashMessageTypes>()
 
-const colors: Record<Colors, string> = {
-  green: 'bg-green-400',
-  red: 'bg-red-400',
-  yellow: 'bg-yellow-300',
-  white: 'bg-white',
+const colors: Record<FlashMessageTypes, string> = {
+  [FlashMessageTypes.success]: 'bg-green-400',
+  [FlashMessageTypes.error]: 'bg-red-400',
+  [FlashMessageTypes.warning]: 'bg-yellow-300',
+  [FlashMessageTypes.secondary]: 'bg-white',
+  [FlashMessageTypes.primary]: 'bg-primary',
 }
 
 const color = computed(() => {
-  return colors[emitColor.value || 'green']
+  return colors[emitColor.value || FlashMessageTypes.success]
 })
 const textColor = computed(() => {
-  return emitColor.value === 'yellow' || emitColor.value === 'white' ? 'text-gray-700' : ''
+  return emitColor.value === FlashMessageTypes.warning || emitColor.value === FlashMessageTypes.secondary ? 'text-gray-700' : ''
 })
 const timeoutId = ref<number | null>(null)
 
@@ -39,8 +38,8 @@ const setDelayedHide = () => {
 
 onFlash((payload) => {
   setTransitionDelay()
-  message.value = payload.message
-  emitColor.value = payload.color
+  message.value = payload.text
+  emitColor.value = payload.type
   show.value = true
   setDelayedHide()
 })

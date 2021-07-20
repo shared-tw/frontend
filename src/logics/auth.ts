@@ -1,93 +1,43 @@
 import { computed, ref } from 'vue'
-import { useRouter } from 'vue-router'
-import { useStorage } from '@vueuse/core'
-import { authApi, registerApi } from '@/api'
-import { flash, EmitTypes } from '@/logics/emitter'
+import { flash, FlashMessageTypes } from '@/logics/emitter'
+import authStore from '@/store/auth'
+import config from '@/config'
 
-import type { JWTToken, JWTTokenCreation, DonatorCreation, OrganizationCreation } from '@/api'
-
-export const userId = useStorage<string>('user_id', '')
-export const userToken = ref<string | null>(null)
+import type { JWTTokenCreation, DonatorCreation, OrganizationCreation } from '@/api'
 
 export function useAuth() {
-  const router = useRouter()
-
-  const isAuthorized = computed(() => {
-    return !!userToken.value
-  })
+  const isAuthorized = computed(() => authStore.state.authenticated)
 
   function login(user: JWTTokenCreation) {
     const loading = ref(true)
-    const result = ref<JWTToken | null>(null)
-    const error = ref<any>(null)
 
-    authApi.createJwtToken({
-      username: user.username,
-      password: user.password,
-    }).then(({ data }) => {
-      const { access } = data
-
-      userToken.value = access
-
-      result.value = data
-      loading.value = false
-
-      router.push('/')
-
-      flash('登入成功', EmitTypes.Success)
-    }).catch((err: Error) => {
-      loading.value = false
-      error.value = err
-      // eslint-disable-next-line no-console
-      console.error(err)
-
-      flash('登入失敗', EmitTypes.Danger)
-    })
+    authStore.actions.login(user)
+      .then(() => {
+        loading.value = false
+        flash('成功登入', { type: FlashMessageTypes.success })
+      })
 
     return {
       loading,
-      error,
     }
   }
 
-  // handle SSO logins
-  const lineLoginUrl = 'https://shared-tw.icu/api/oauth/line/login?next=/oauth/interaction'
-
   function logout() {
-    userToken.value = ''
-    router.push('/')
-
-    flash('已登出', EmitTypes.Success)
-  }
-
-  function resetPassword(email: string) {
-    // eslint-disable-next-line no-alert
-    alert(email)
+    authStore.actions.logout()
+    flash('已登出', { type: FlashMessageTypes.success })
   }
 
   function registerDonator(data: DonatorCreation) {
     const loading = ref(true)
-    const error = ref<any>(null)
 
-    registerApi.createDonator(data).then(({ data }) => {
-      const { id } = data
-      userId.value = `${id}`
-      loading.value = false
-
-      flash('註冊成功', EmitTypes.Success)
-    }).catch((err: Error) => {
-      loading.value = false
-      error.value = err.message
-
-      flash('註冊失敗', EmitTypes.Danger)
-
-      // eslint-disable-next-line no-console
-      console.error(err)
-    })
+    authStore.actions.registerDonator(data)
+      .then(() => {
+        loading.value = false
+        flash('註冊成功', { type: FlashMessageTypes.success })
+      })
 
     return {
       loading,
-      error,
     }
   }
 
@@ -98,42 +48,37 @@ export function useAuth() {
     } = data
 
     const loading = ref(true)
-    const error = ref<any>(null)
 
-    registerApi.createOrganization(data).then(({ data }) => {
-      const { id } = data
-      userId.value = `${id}`
-      loading.value = false
+    authStore.actions.registerOrg(data)
+      .then(() => {
+        loading.value = false
+        flash('註冊成功', { type: FlashMessageTypes.success })
 
-      flash('註冊成功', EmitTypes.Success)
-
-      return login({
-        username,
-        password,
+        login({
+          username,
+          password,
+        })
       })
-    }).catch((err: Error) => {
-      loading.value = false
-      error.value = err.message
-
-      flash('註冊失敗', EmitTypes.Danger)
-
-      // eslint-disable-next-line no-console
-      console.error(err)
-    })
 
     return {
       loading,
-      error,
     }
   }
+
+  function resetPassword(email: string) {
+    // eslint-disable-next-line no-console
+    console.log(email)
+  }
+
+  const lineLoginUrl = config.SSOUrls.line
 
   return {
     login,
     lineLoginUrl,
     logout,
     isAuthorized,
-    resetPassword,
     registerDonator,
     registerOrg,
+    resetPassword,
   }
 }

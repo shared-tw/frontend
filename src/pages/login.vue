@@ -1,5 +1,7 @@
 <template>
   <WithHeader>
-    <LoginPage />
+    <LoginPage>
+      <router-view />
+    </LoginPage>
   </WithHeader>
 </template>

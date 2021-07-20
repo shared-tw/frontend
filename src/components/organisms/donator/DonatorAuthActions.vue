@@ -8,9 +8,10 @@ const {
 </script>
 
 <template>
-  <div class="space-y-3 py-4 border-t">
+  <div class="space-y-3 pb-6">
+    <span class="py-2 block">一般民眾：</span>
     <AppLink class="w-full bg-line" :href="lineLoginUrl" :new-window="false">
-      使用 Line 登入 / 註冊
+      Line 登入 / 註冊
     </AppLink>
   </div>
 </template>

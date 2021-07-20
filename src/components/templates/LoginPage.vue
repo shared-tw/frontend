@@ -1,10 +1,8 @@
 <template>
   <AuthLayout>
     <AppTitle>
-      登入
+      {{ $route.path.endsWith('organization') ? '機構登入' : '登入' }}
     </AppTitle>
-    <LoginForm />
-    <SSOButtons />
-    <RegisterLinks />
+    <slot />
   </AuthLayout>
 </template>

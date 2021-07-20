@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { useAuth } from '@/logics/auth'
-
-const { isAuthorized } = useAuth()
+import authStore from '@/store/auth'
 
 const menuList = [
   {
@@ -37,7 +35,7 @@ const menuList = [
       </AppPopover>
       <AppLogo class="h-55px flex-1" />
       <div class="px-2" :class="{'opacity-0 pointer-events-none': $route.path === '/login'}">
-        <button v-if="isAuthorized" class="icon-btn">
+        <button v-if="authStore.state.authenticated" class="icon-btn">
           <ic:round-account-circle />
         </button>
         <AppLink v-else to="/login" outline>

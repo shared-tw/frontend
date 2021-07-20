@@ -1,35 +1,42 @@
 import mitt from 'mitt'
 import { onMounted } from 'vue'
 
-export type Colors = 'green' | 'red' | 'yellow' | 'white'
-export type FlashPayload = { color: Colors; message: string }
 export const FLASH_EVENT = Symbol('flashMessage')
 
+export enum FlashMessageTypes {
+  success = 'success',
+  error = 'error',
+  warning = 'warning',
+  primary = 'primary',
+  secondary = 'secondary'
+}
+
+export interface FlashOptions {
+  type?: FlashMessageTypes
+}
+
+export interface FlashEmitOptions extends FlashOptions {
+  text: string
+}
+
 type MittEvent = {
-  [FLASH_EVENT]: FlashPayload
+  [FLASH_EVENT]: FlashEmitOptions
 }
 
 export const emitter = mitt<MittEvent>()
 
-export const EmitTypes = {
-  Success: 'green',
-  Danger: 'red',
-  Warning: 'yellow',
-  Info: 'white',
-} as const
-
-export const flash = (message: string, color: Colors): void => {
+export const flash = (message: string, options: FlashOptions): void => {
   emitter.emit(FLASH_EVENT, {
-    message,
-    color,
+    text: message,
+    ...options,
   })
 }
 
-export function onFlash(fn: (e: FlashPayload) => void) {
+export function onFlash(fn: (event: FlashEmitOptions) => void) {
   onMounted(() => {
-    emitter.on(FLASH_EVENT, (e) => {
-      if (!e) return
-      fn(e)
+    emitter.on(FLASH_EVENT, (event) => {
+      if (!event) return
+      fn(event)
     })
   })
 }

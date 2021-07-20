@@ -1,8 +1,8 @@
-import { computed, watch, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useStorage } from '@vueuse/core'
-import { getDonationItems } from '@/api'
 import { needConfirm } from '@/store/apply'
+import donatorStore from '@/store/donator'
 
 import type { RequiredItem } from '@/api'
 
@@ -12,16 +12,14 @@ export function useOrg() {
   const route = useRoute()
   const router = useRouter()
   const { org: orgParam } = route.params
-  const { items, error } = getDonationItems()
 
-  watch(error, (e) => {
-    if (e) {
-      router.push('/')
-    }
+  onMounted(async() => {
+    if (donatorStore.state.orgList) return
+    await donatorStore.actions.getRequiredItems()
   })
 
   const org = computed(() => {
-    return items.value?.find(item => item.organization.name === orgParam)
+    return donatorStore.state.orgList.find(item => item.organization.name === orgParam)
   })
 
   const orgName = computed(() => org.value?.organization.name)

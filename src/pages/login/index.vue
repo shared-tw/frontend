@@ -1,0 +1,4 @@
+<template>
+  <DonatorAuthActions />
+  <OrgAuthActions />
+</template>
