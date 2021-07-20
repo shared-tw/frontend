@@ -28,7 +28,7 @@ const {
   <div class="w-full pb-6 relative">
     <label :for="name" class="mb-1 block">
       {{ label }}
-      <span v-if="required" class="text-red-400">*</span>
+      <span v-if="required" class="text-primary">*</span>
     </label>
     <AppSelect
       :id="name"

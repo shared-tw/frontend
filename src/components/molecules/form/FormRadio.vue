@@ -35,7 +35,7 @@ defineProps({
   <div class="w-full pb-6 relative">
     <label :for="name" class="mb-1 block">
       {{ label }}
-      <span v-if="required" class="text-red-400">*</span>
+      <span v-if="required" class="text-primary">*</span>
     </label>
     <div class="space-x-3">
       <template v-for="{ value, name } in children" :key="value">
