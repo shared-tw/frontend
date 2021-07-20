@@ -4,6 +4,9 @@ import { authApi, registerApi } from '@/api'
 import httpClient from '@/api/httpClient'
 
 import type { JWTTokenCreation, DonatorCreation, OrganizationCreation, Donator, Organization } from '@/api'
+import { useStorage } from '@vueuse/core'
+
+const auth = useStorage('authenticated', '0')
 
 const state = reactive<{
   token: string
@@ -12,7 +15,7 @@ const state = reactive<{
   org: Organization | null
 }>({
   token: '',
-  authenticated: false,
+  authenticated: !!auth.value,
   donator: null,
   org: null,
 })
@@ -20,9 +23,13 @@ const state = reactive<{
 watch(() => state.token, (token) => {
   if (state.token) {
     state.authenticated = true
+    // set to authenticated
+    auth.value = '1'
     httpClient.defaults.headers.common.Authorization = `Bearer ${token}`
   } else {
     state.authenticated = false
+    // remove authenticated
+    auth.value = '0'
     delete httpClient.defaults.headers.common.Authorization
   }
 })
