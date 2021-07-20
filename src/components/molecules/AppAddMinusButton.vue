@@ -1,50 +1,60 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-const props = defineProps({
-  type: {
-    type: String,
-    default: 'text',
-  },
-  value: {
-    type: Number,
-    default: 0,
-  },
-  min: {
-    type: Number,
-    default: 0,
-  },
-  max: {
-    type: Number,
-    default: null,
-  },
+interface Props {
+  value?: number
+  error?: boolean
+  min?: number
+  max?: number
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  value: 1,
+  error: false,
+  min: 1,
+  max: 10,
 })
 
-const value = ref(props.value)
+const input = ref<HTMLInputElement>()
+
+defineEmits<{
+  (e: 'change', value: Event): void
+  (e: 'blur', value: FocusEvent): void
+}>()
 
 const handleAdd = () => {
-  if (value.value >= props.max) return
-  value.value++
+  if (props.value >= props.max) return
+  input.value?.dispatchEvent(new Event('change'))
+  input.value?.dispatchEvent(new FocusEvent('blur'))
 }
 
 const handleMinus = () => {
-  if (value.value <= props.min) return
-  value.value--
+  if (props.value <= props.min) return
+  input.value?.dispatchEvent(new Event('change'))
+  input.value?.dispatchEvent(new FocusEvent('blur'))
 }
 
 </script>
 
 <template>
-  <div class="flex justify-between p-1 border border-$shared-bc rounded-md text-primary-dark">
-    <button class="tag rounded-md p-1" light @click="handleMinus">
+  <div
+    class="flex justify-between d-input p-1"
+    :class="{
+      'border-negative': error
+    }"
+  >
+    <button class="tag rounded-md p-1 text-primary-medium text-15px" @click="handleMinus">
       <uil:minus />
     </button>
-    <AppInput
-      type="number"
+    <input
+      ref="input"
       :value="value"
-      class="w-6 h-6 px-0 py-0 leading-none text-center border-none rounded-none text-darkblue"
-    />
-    <button class="tag rounded-md p-1" @click="handleAdd">
+      type="number"
+      class="appearance-none w-full text-center outline-none text-darkblue"
+      @change="$emit('change', $event)"
+      @blur="$emit('blur', $event)"
+    >
+    <button class="tag rounded-md p-1 text-15px" @click="handleAdd">
       <uil:plus />
     </button>
   </div>
