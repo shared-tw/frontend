@@ -1,5 +1,5 @@
 <template>
-  <WithHeader>
+  <AppContainer>
     <HomePage />
-  </WithHeader>
+  </AppContainer>
 </template>

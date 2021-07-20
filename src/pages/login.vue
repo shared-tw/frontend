@@ -1,7 +1,7 @@
 <template>
-  <WithHeader>
+  <AppContainer>
     <LoginPage>
       <router-view />
     </LoginPage>
-  </WithHeader>
+  </AppContainer>
 </template>

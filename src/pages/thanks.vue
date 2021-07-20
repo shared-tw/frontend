@@ -1,5 +1,3 @@
 <template>
-  <WithHeader>
-    <ThanksPage />
-  </WithHeader>
+  <ThanksPage />
 </template>
