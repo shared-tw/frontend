@@ -21,7 +21,7 @@ function handleToolbarClick() {
 
 <template>
   <div v-if="org">
-    <OrgItemsHeader :name="org.organization.name" />
+    <NavigationHeader :name="org.organization.name" />
     <AppContainer>
       <OrgItemsInfo :org="org.organization" />
       <OrgItemsList :items="org.items" />

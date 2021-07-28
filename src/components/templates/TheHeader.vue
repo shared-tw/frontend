@@ -10,9 +10,9 @@ import authStore from '@/store/auth'
     <div class="container flex h-$header-height mx-auto max-w-screen-xl text-primary items-center">
       <AppLogo class="h-55px flex-1" />
       <div v-if="!$route.path.startsWith('/login')" class="pl-auto">
-        <button v-if="authStore.state.authenticated" class="icon-btn">
+        <router-link v-if="authStore.state.authenticated" to="/user" class="icon-btn">
           <ic:round-account-circle />
-        </button>
+        </router-link>
         <AppLink v-else to="/login" outline>
           登入
         </AppLink>

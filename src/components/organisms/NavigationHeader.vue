@@ -16,6 +16,9 @@ defineProps({
     <h2 class="font-medium">
       {{ name }}
     </h2>
+    <div class="absolute right-0">
+      <slot name="actions" />
+    </div>
   </header>
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-  <TheHeader v-show="!$route.params.org" />
+  <TheHeader v-show="!$route.meta.hideHeader" />
   <router-view />
   <FlashMessage />
 </template>
