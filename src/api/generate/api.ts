@@ -117,6 +117,12 @@ export interface DonationCreation {
      * @type {number}
      * @memberof DonationCreation
      */
+    id: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof DonationCreation
+     */
     amount: number;
     /**
      * 
@@ -131,6 +137,12 @@ export interface DonationCreation {
  * @interface DonationModification
  */
 export interface DonationModification {
+    /**
+     * 
+     * @type {number}
+     * @memberof DonationModification
+     */
+    id?: number;
     /**
      * 
      * @type {EventEnum}
@@ -589,6 +601,25 @@ export enum RequiredItemStateEnum {
 }
 
 /**
+ * 
+ * @export
+ * @interface SetDonationResult
+ */
+export interface SetDonationResult {
+    /**
+     * 
+     * @type {string}
+     * @memberof SetDonationResult
+     */
+    message?: string;
+    /**
+     * 
+     * @type {Donation}
+     * @memberof SetDonationResult
+     */
+    donation?: Donation;
+}
+/**
  * An enumeration.
  * @export
  * @enum {string}
@@ -857,18 +888,14 @@ export const DonatorApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * 
          * @summary Create Donation
-         * @param {number} requiredItemId 
-         * @param {DonationCreation} donationCreation 
+         * @param {Array<DonationCreation>} donationCreation 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createDonation: async (requiredItemId: number, donationCreation: DonationCreation, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'requiredItemId' is not null or undefined
-            assertParamExists('createDonation', 'requiredItemId', requiredItemId)
+        createDonation: async (donationCreation: Array<DonationCreation>, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'donationCreation' is not null or undefined
             assertParamExists('createDonation', 'donationCreation', donationCreation)
-            const localVarPath = `/required-items/{required_item_id}/donations`
-                .replace(`{${"required_item_id"}}`, encodeURIComponent(String(requiredItemId)));
+            const localVarPath = `/required-items/donations`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -901,18 +928,14 @@ export const DonatorApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * 
          * @summary Edit Donation
-         * @param {number} donationId 
-         * @param {DonationModification} donationModification 
+         * @param {Array<DonationModification>} donationModification 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        editDonation: async (donationId: number, donationModification: DonationModification, options: any = {}): Promise<RequestArgs> => {
-            // verify required parameter 'donationId' is not null or undefined
-            assertParamExists('editDonation', 'donationId', donationId)
+        editDonation: async (donationModification: Array<DonationModification>, options: any = {}): Promise<RequestArgs> => {
             // verify required parameter 'donationModification' is not null or undefined
             assertParamExists('editDonation', 'donationModification', donationModification)
-            const localVarPath = `/donations/{donation_id}`
-                .replace(`{${"donation_id"}}`, encodeURIComponent(String(donationId)));
+            const localVarPath = `/donations`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -1019,25 +1042,23 @@ export const DonatorApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary Create Donation
-         * @param {number} requiredItemId 
-         * @param {DonationCreation} donationCreation 
+         * @param {Array<DonationCreation>} donationCreation 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createDonation(requiredItemId: number, donationCreation: DonationCreation, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Donation>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.createDonation(requiredItemId, donationCreation, options);
+        async createDonation(donationCreation: Array<DonationCreation>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SetDonationResult>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createDonation(donationCreation, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
          * 
          * @summary Edit Donation
-         * @param {number} donationId 
-         * @param {DonationModification} donationModification 
+         * @param {Array<DonationModification>} donationModification 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async editDonation(donationId: number, donationModification: DonationModification, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Donation>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.editDonation(donationId, donationModification, options);
+        async editDonation(donationModification: Array<DonationModification>, options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<SetDonationResult>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.editDonation(donationModification, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1073,24 +1094,22 @@ export const DonatorApiFactory = function (configuration?: Configuration, basePa
         /**
          * 
          * @summary Create Donation
-         * @param {number} requiredItemId 
-         * @param {DonationCreation} donationCreation 
+         * @param {Array<DonationCreation>} donationCreation 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createDonation(requiredItemId: number, donationCreation: DonationCreation, options?: any): AxiosPromise<Donation> {
-            return localVarFp.createDonation(requiredItemId, donationCreation, options).then((request) => request(axios, basePath));
+        createDonation(donationCreation: Array<DonationCreation>, options?: any): AxiosPromise<Array<SetDonationResult>> {
+            return localVarFp.createDonation(donationCreation, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary Edit Donation
-         * @param {number} donationId 
-         * @param {DonationModification} donationModification 
+         * @param {Array<DonationModification>} donationModification 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        editDonation(donationId: number, donationModification: DonationModification, options?: any): AxiosPromise<Donation> {
-            return localVarFp.editDonation(donationId, donationModification, options).then((request) => request(axios, basePath));
+        editDonation(donationModification: Array<DonationModification>, options?: any): AxiosPromise<Array<SetDonationResult>> {
+            return localVarFp.editDonation(donationModification, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1123,27 +1142,25 @@ export class DonatorApi extends BaseAPI {
     /**
      * 
      * @summary Create Donation
-     * @param {number} requiredItemId 
-     * @param {DonationCreation} donationCreation 
+     * @param {Array<DonationCreation>} donationCreation 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DonatorApi
      */
-    public createDonation(requiredItemId: number, donationCreation: DonationCreation, options?: any) {
-        return DonatorApiFp(this.configuration).createDonation(requiredItemId, donationCreation, options).then((request) => request(this.axios, this.basePath));
+    public createDonation(donationCreation: Array<DonationCreation>, options?: any) {
+        return DonatorApiFp(this.configuration).createDonation(donationCreation, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
      * 
      * @summary Edit Donation
-     * @param {number} donationId 
-     * @param {DonationModification} donationModification 
+     * @param {Array<DonationModification>} donationModification 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DonatorApi
      */
-    public editDonation(donationId: number, donationModification: DonationModification, options?: any) {
-        return DonatorApiFp(this.configuration).editDonation(donationId, donationModification, options).then((request) => request(this.axios, this.basePath));
+    public editDonation(donationModification: Array<DonationModification>, options?: any) {
+        return DonatorApiFp(this.configuration).editDonation(donationModification, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
