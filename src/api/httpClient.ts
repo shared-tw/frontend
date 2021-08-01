@@ -47,18 +47,18 @@ const errorInterceptor = async(error: AxiosError) => {
 
   // All other errors
   if (error.response.data) message = error.response.data
-  if (error.response.data.error.message) message = error.response.data.error.message
+  if (error.response.data.error?.message) message = error.response.data.error.message
 
   const url = error.config.url || ''
   switch (error.response.status) {
     case 500:
       consola.debug(error.response.status, error.message, message)
-      flash(message || 'Server error', { type: FlashMessageTypes.error })
+      flash(error.message || 'Server error', { type: FlashMessageTypes.error })
       break
     case 400:
       consola.debug(error.response.status, error.message, message)
       if (!excludeErrorHandlePaths.includes(url)) {
-        flash(message || 'Server error', { type: FlashMessageTypes.error })
+        flash(error.message || 'Server error', { type: FlashMessageTypes.error })
       }
       break
     case 401:
@@ -78,7 +78,7 @@ const errorInterceptor = async(error: AxiosError) => {
       break
     default:
       consola.debug(error.response.status, error.message)
-      flash(message || 'Server error', { type: FlashMessageTypes.error })
+      flash(error.message || 'Server error', { type: FlashMessageTypes.error })
   }
 
   return Promise.reject(error)
