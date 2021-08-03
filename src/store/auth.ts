@@ -1,12 +1,12 @@
 import { reactive, watch } from 'vue'
-import { useRouter } from 'vue-router'
+import { router } from '@/router'
 import { authApi, registerApi } from '@/api'
 import httpClient from '@/api/httpClient'
 
 import type { JWTTokenCreation, DonatorCreation, OrganizationCreation, Donator, Organization } from '@/api'
 import { useStorage } from '@vueuse/core'
 
-const auth = useStorage('authenticated', '0')
+const auth = useStorage('authenticated', 'false')
 
 const state = reactive<{
   token: string
@@ -15,7 +15,7 @@ const state = reactive<{
   org: Organization | null
 }>({
   token: '',
-  authenticated: !!auth.value,
+  authenticated: auth.value === 'true',
   donator: null,
   org: null,
 })
@@ -24,12 +24,12 @@ watch(() => state.token, (token) => {
   if (state.token) {
     state.authenticated = true
     // set to authenticated
-    auth.value = '1'
+    auth.value = 'true'
     httpClient.defaults.headers.common.Authorization = `Bearer ${token}`
   } else {
     state.authenticated = false
     // remove authenticated
-    auth.value = '0'
+    auth.value = 'false'
     delete httpClient.defaults.headers.common.Authorization
   }
 })
@@ -39,6 +39,7 @@ const actions = {
     return authApi.createJwtToken(loginData)
       .then((res) => {
         state.token = res.data.access
+        router.push('/')
       })
       .catch((err) => {
         state.token = ''
@@ -47,7 +48,6 @@ const actions = {
   },
   async logout() {
     state.token = ''
-    const router = useRouter()
     router.push('/')
   },
   async refreshToken() {

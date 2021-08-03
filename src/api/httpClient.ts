@@ -1,6 +1,6 @@
 import Axios from 'axios'
 import consola from 'consola'
-import { useRouter } from 'vue-router'
+import { router } from '@/router'
 import { flash, FlashMessageTypes } from '@/logics/emitter'
 import authStore from '@/store/auth'
 import config from '@/config'
@@ -69,7 +69,6 @@ const errorInterceptor = async(error: AxiosError) => {
           return httpClient(error.config)
         }
       } else {
-        const router = useRouter()
         router.push('/login')
       }
       break
