@@ -1,8 +1,9 @@
 import config from '@/config'
 import httpClient from '@/api/httpClient'
-import { AuthenticationApi, RegistrationApi, DonatorApi, OrganizationApi } from './generate'
+import { AuthenticationApi, RegistrationApi, DonatorApi, OrganizationApi, UserApi } from './generate'
 
 export const authApi = new AuthenticationApi(undefined, config.apiUrl, httpClient)
+export const userApi = new UserApi(undefined, config.apiUrl, httpClient)
 export const registerApi = new RegistrationApi(undefined, config.apiUrl, httpClient)
 export const donationApi = new DonatorApi(undefined, config.apiUrl, httpClient)
 

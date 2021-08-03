@@ -629,6 +629,43 @@ export enum Units {
     Set = 'set'
 }
 
+/**
+ * 
+ * @export
+ * @interface UserMe
+ */
+export interface UserMe {
+    /**
+     * 
+     * @type {string}
+     * @memberof UserMe
+     */
+    name: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserMe
+     */
+    email?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserMe
+     */
+    phone?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserMe
+     */
+    other_contact_method?: string;
+    /**
+     * ㄐ
+     * @type {string}
+     * @memberof UserMe
+     */
+    other_contact?: string;
+}
 
 /**
  * AuthenticationApi - axios parameter creator
@@ -1797,6 +1834,108 @@ export class RegistrationApi extends BaseAPI {
      */
     public createOrganization(organizationCreation: OrganizationCreation, options?: any) {
         return RegistrationApiFp(this.configuration).createOrganization(organizationCreation, options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
+ * UserApi - axios parameter creator
+ * @export
+ */
+export const UserApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @summary Get Users Me
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUsersMe: async (options: any = {}): Promise<RequestArgs> => {
+            const localVarPath = `/users/me`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication JWTAuthBearer required
+            // http bearer authentication required
+            await setBearerAuthToObject(localVarHeaderParameter, configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter, options.query);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * UserApi - functional programming interface
+ * @export
+ */
+export const UserApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = UserApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @summary Get Users Me
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getUsersMe(options?: any): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<UserMe>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getUsersMe(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * UserApi - factory interface
+ * @export
+ */
+export const UserApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = UserApiFp(configuration)
+    return {
+        /**
+         * 
+         * @summary Get Users Me
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getUsersMe(options?: any): AxiosPromise<UserMe> {
+            return localVarFp.getUsersMe(options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * UserApi - object-oriented interface
+ * @export
+ * @class UserApi
+ * @extends {BaseAPI}
+ */
+export class UserApi extends BaseAPI {
+    /**
+     * 
+     * @summary Get Users Me
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof UserApi
+     */
+    public getUsersMe(options?: any) {
+        return UserApiFp(this.configuration).getUsersMe(options).then((request) => request(this.axios, this.basePath));
     }
 }
 

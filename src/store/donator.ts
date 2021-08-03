@@ -25,11 +25,11 @@ const actions = {
         state.donations = res.data
       })
   },
-  async createDonation(id: number, donation: DonationCreation) {
-    return donationApi.createDonation(id, donation)
+  async createDonation(donation: DonationCreation[]) {
+    return donationApi.createDonation(donation)
   },
-  async editDonation(id: number, donation: DonationModification) {
-    return donationApi.editDonation(id, donation)
+  async editDonation(donation: DonationModification[]) {
+    return donationApi.editDonation(donation)
   },
 }
 
