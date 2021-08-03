@@ -8,19 +8,19 @@
       <CheckAllButton to="/" />
     </template>
     <div class="flex space-x-4">
-      <DonationStateLink to="/">
+      <DonationStateLink to="/user/donation?tab=await">
         <template #icon>
           <uil:heart-medical />
         </template>
         待確認
       </DonationStateLink>
-      <DonationStateLink to="/">
+      <DonationStateLink to="/user/donation?tab=await">
         <template #icon>
           <uil:comment-dots />
         </template>
         待出貨
       </DonationStateLink>
-      <DonationStateLink to="/">
+      <DonationStateLink to="/user/donation?tab=await">
         <template #icon>
           <uil:truck />
         </template>
