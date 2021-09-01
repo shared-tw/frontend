@@ -1,13 +1,15 @@
-import { OrganizationTypes } from '@/api'
 import { data, select_columns } from './tw-county-list.json'
+import type { FieldChildren } from '@/types'
+import { OrganizationTypes } from '@/api'
 
-export const TWCountyList = data.map((item) => {
+export const TWCountyList: FieldChildren[] = data.map((item) => {
   return {
-    name: item[select_columns.indexOf('NAME_2014')],
+    tag: 'option',
+    text: item[select_columns.indexOf('NAME_2014')],
     value: item[select_columns.indexOf('ISO3166')],
   }
 }).filter((item) => {
-  return !!item.name
+  return !!item.text
 })
 
 const cityNames: Record<string, string> = {}
@@ -20,7 +22,7 @@ const orgTypeNames = {
 } as Record<string, string>
 
 TWCountyList.forEach((i) => {
-  cityNames[i.value] = i.name
+  cityNames[i.value] = i.text
 })
 
 export { cityNames, orgTypeNames }

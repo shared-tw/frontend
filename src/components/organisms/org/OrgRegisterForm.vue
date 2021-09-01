@@ -1,5 +1,136 @@
 <script setup lang="ts">
 import { syncRef } from '@vueuse/core'
+import type { FormSchema } from '@/types'
+import { useAuth } from '@/logics/auth'
+import { formContactMethods, formOrgTypes, TWCountyList } from '@/data'
+
+const { registerDonator } = useAuth()
+
+const schema: FormSchema = {
+  fields: [
+    {
+      name: 'username',
+      label: '帳號名稱',
+      placeholder: 'username',
+      autocomplete: 'username',
+    },
+    {
+      name: 'email',
+      type: 'email',
+      label: '電子郵件信箱',
+      placeholder: 'user@example.com',
+      autocomplete: 'email',
+    },
+    {
+      name: 'password',
+      type: 'password',
+      label: '密碼',
+      placeholder: 'password',
+      autocomplete: 'new-password',
+    },
+    {
+      name: 'confirmed_password',
+      type: 'password',
+      label: '確認密碼',
+      placeholder: 'password',
+      autocomplete: 'current-password',
+    },
+    {
+      name: 'phone',
+      type: 'tel',
+      label: '聯絡電話（不含『 - 』）',
+      placeholder: '0901234564',
+      autocomplete: 'tel',
+    },
+    {
+      name: 'type',
+      label: '單位類型',
+      as: 'select',
+      children: formOrgTypes,
+    },
+    {
+      name: 'type_other',
+      label: '',
+      placeholder: '單位類型',
+      show: v => v.type === 'other',
+    },
+    {
+      name: 'name',
+      type: 'text',
+      label: '單位正式名稱',
+    },
+    {
+      name: 'city',
+      label: '單位縣市',
+      as: 'select',
+      children: TWCountyList,
+    },
+    {
+      name: 'address',
+      type: 'text',
+      label: '單位地址',
+    },
+    {
+      name: 'office_hours',
+      type: 'text',
+      label: '聯絡時間 (ex. 10:00~17:00)',
+    },
+    {
+      name: 'other_contact_method',
+      label: '其他聯絡方式',
+      as: 'select',
+      children: formContactMethods,
+    },
+    {
+      name: 'other_contact',
+      type: 'text',
+      show: v => v.other_contact_method,
+      placeholder: '聯絡方式',
+    },
+  ],
+  validation: {
+    username: 'required',
+    email: 'required|email',
+    password: 'required|min:8',
+    confirmed_password: 'required|confirmed:@password',
+    phone: 'required|numeric',
+    type: 'required',
+    type_other: '',
+    name: 'required',
+    city: 'required',
+    address: 'required',
+    office_hours: 'required',
+    other_contact_method: 'required',
+    other_contact: 'required',
+  },
+}
+
+const isLoading = ref(false)
+
+function onSubmit(values: any) {
+  const { loading } = registerDonator(values)
+  syncRef(loading, isLoading)
+}
+</script>
+
+<template>
+  <DynamicForm :schema="schema" @submit="onSubmit">
+    <template #actions="{ meta }">
+      <FormActions
+        button-name="註冊"
+        :link="{
+          content: '取消',
+          href: '/login'
+        }"
+        :is-loading="isLoading"
+        :meta="meta"
+      />
+    </template>
+  </DynamicForm>
+</template>
+
+<!-- <script setup lang="ts">
+import { syncRef } from '@vueuse/core'
 import { Form } from 'vee-validate'
 import type { ToSchema } from '@/types'
 import type { OrganizationCreation } from '@/api'
@@ -133,4 +264,4 @@ function onSubmit(values: any) {
       :meta="meta"
     />
   </Form>
-</template>
+</template> -->

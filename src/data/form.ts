@@ -1,17 +1,28 @@
 import { ContactMethods, OrganizationTypes } from '@/api'
-import { ListItem } from '@/types'
+import { ListItem, FieldChildren } from '@/types'
 
-export const otherContactItems: ListItem[] = [
+export const defaultSelectOption: FieldChildren = {
+  tag: 'option',
+  text: '--- 選擇 ---',
+  disabled: true,
+  selected: true,
+}
+
+export const formContactMethods: FieldChildren[] = [
+  defaultSelectOption,
   {
-    name: 'Line',
+    tag: 'option',
+    text: 'Line',
     value: ContactMethods.Line,
   },
   {
-    name: 'Facebook',
+    tag: 'option',
+    text: 'Facebook',
     value: ContactMethods.Fb,
   },
   {
-    name: 'Email',
+    tag: 'option',
+    text: 'Email',
     value: ContactMethods.Email,
   },
 ]
@@ -27,21 +38,25 @@ export const needInvoiceItems: ListItem[] = [
   },
 ]
 
-export const orgTypes: ListItem[] = [
+export const formOrgTypes: FieldChildren[] = [
   {
-    name: '醫院',
+    tag: 'option',
+    text: '醫院',
     value: OrganizationTypes.Hospital,
   },
   {
-    name: '警局',
+    tag: 'option',
+    text: '警局',
     value: OrganizationTypes.PoliceStation,
   },
   {
-    name: '消防局',
+    tag: 'option',
+    text: '消防局',
     value: OrganizationTypes.FireDepartment,
   },
   {
-    name: '其他',
+    tag: 'option',
+    text: '其他',
     value: OrganizationTypes.Other,
   },
 ]

@@ -12,8 +12,11 @@ defineRule('confirmed', confirmed)
 
 // 新增語言（用於錯誤信息）
 configure({
-  generateMessage: localize({
-    'zh-tw': zh_TW,
+  generateMessage: localize('zh-tw', {
+    messages: {
+      ...zh_TW.messages,
+      required: '此項目為必填',
+    },
   }),
 })
 

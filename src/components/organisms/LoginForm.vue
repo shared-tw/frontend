@@ -1,16 +1,30 @@
 <script setup lang="ts">
-import { Form } from 'vee-validate'
 import { syncRef } from '@vueuse/core'
-
-import type { ToSchema } from '@/types'
-import type { JWTTokenCreation } from '@/api'
+import type { FormSchema } from '@/types'
 import { useAuth } from '@/logics/auth'
 
 const { login } = useAuth()
 
-const schema: ToSchema<JWTTokenCreation> = {
-  username: 'required',
-  password: 'required|min:8',
+const schema: FormSchema = {
+  fields: [
+    {
+      name: 'username',
+      label: '帳號',
+      placeholder: 'username',
+      autocomplete: 'username',
+    },
+    {
+      name: 'password',
+      type: 'password',
+      label: '密碼',
+      placeholder: 'password',
+      autocomplete: 'current-password',
+    },
+  ],
+  validation: {
+    username: 'required',
+    password: 'required|min:8',
+  },
 }
 
 const isLoading = ref(false)
@@ -22,29 +36,17 @@ function onSubmit(values: any) {
 </script>
 
 <template>
-  <Form v-slot="{ meta }" :validation-schema="schema" class="mb-6" @submit="onSubmit">
-    <FormInput
-      name="username"
-      type="text"
-      label="帳號"
-      placeholder="username"
-      autocomplete="username"
-    />
-    <FormInput
-      name="password"
-      type="password"
-      label="密碼"
-      placeholder="password"
-      autocomplete="current-password"
-    />
-    <FormActions
-      button-name="登入"
-      :link="{
-        content: '忘記密碼',
-        href: '/account/password_reset'
-      }"
-      :is-loading="isLoading"
-      :meta="meta"
-    />
-  </Form>
+  <DynamicForm :schema="schema" @submit="onSubmit">
+    <template #actions="{ meta }">
+      <FormActions
+        button-name="登入"
+        :link="{
+          content: '忘記密碼',
+          href: '/account/password_reset'
+        }"
+        :is-loading="isLoading"
+        :meta="meta"
+      />
+    </template>
+  </DynamicForm>
 </template>

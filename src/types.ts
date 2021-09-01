@@ -13,3 +13,26 @@ export interface LinkProp {
   content: string
   href: string
 }
+
+export interface FieldChildren {
+  tag: string
+  text: string
+  [k: string]: any
+}
+
+export interface FieldSchema {
+  as?: string
+  name: string
+  label?: string
+  sublabel?: string
+  children?: FieldChildren[]
+  show?: (values: any) => boolean
+  [k: string]: any
+}
+
+export interface FormSchema {
+  fields: FieldSchema[]
+  validation: any
+  values?: { [k: string]: any }
+  submitText?: string
+}
