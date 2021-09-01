@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useOrg } from '@/logics/apply'
 import donatorStore from '@/store/donator'
-import { onMounted } from 'vue'
 
 onMounted(async() => {
   await donatorStore.actions.getDonations()
@@ -29,6 +28,7 @@ function handleToolbarClick() {
 <template>
   <div v-if="org">
     <NavigationHeader :name="org.organization.name" />
+    <UserDonationStateNavbar />
     <AppContainer>
       <OrgItemsInfo :org="org.organization" />
       <OrgItemsList :items="org.items" />

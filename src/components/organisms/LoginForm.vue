@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import { Form } from 'vee-validate'
-import { useAuth } from '@/logics/auth'
-import { ref } from 'vue'
 import { syncRef } from '@vueuse/core'
 
 import type { ToSchema } from '@/types'
 import type { JWTTokenCreation } from '@/api'
+import { useAuth } from '@/logics/auth'
 
 const { login } = useAuth()
 

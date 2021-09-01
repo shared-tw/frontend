@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
 import { onFlash, FlashMessageTypes } from '@/logics/emitter'
 
 const show = ref(false)

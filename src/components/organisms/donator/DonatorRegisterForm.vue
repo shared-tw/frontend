@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { Form } from 'vee-validate'
 import { syncRef } from '@vueuse/core'
+import type { ToSchema } from '@/types'
+import type { DonatorCreation } from '@/api'
 import { useAuth } from '@/logics/auth'
 import { ContactMethods } from '@/api'
 import { otherContactItems, initialValues } from '@/data'
-
-import type { ToSchema } from '@/types'
-import type { DonatorCreation } from '@/api'
 
 const { registerDonator } = useAuth()
 

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { useEventListener } from '@vueuse/core'
 
 const props = defineProps({

@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { syncRef } from '@vueuse/core'
 import { Form } from 'vee-validate'
+import type { ToSchema } from '@/types'
+import type { OrganizationCreation } from '@/api'
 import { useAuth } from '@/logics/auth'
 import { ContactMethods } from '@/api'
 import { TWCountyList, otherContactItems, orgTypes, initialValues } from '@/data'
-
-import type { ToSchema } from '@/types'
-import type { OrganizationCreation } from '@/api'
 
 const { registerOrg } = useAuth()
 

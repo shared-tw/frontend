@@ -85,6 +85,7 @@ declare module 'vue' {
     'Uim:circle': typeof import('virtual:vite-icons/uim/circle')['default']
     UserCard: typeof import('./src/components/organisms/user/UserCard.vue')['default']
     UserDonationStateLinks: typeof import('./src/components/organisms/user/UserDonationStateLinks.vue')['default']
+    UserDonationStateNavbar: typeof import('./src/components/organisms/user/UserDonationStateNavbar.vue')['default']
     UserLogoutButton: typeof import('./src/components/molecules/UserLogoutButton.vue')['default']
     UserNotificationCenter: typeof import('./src/components/organisms/user/UserNotificationCenter.vue')['default']
   }

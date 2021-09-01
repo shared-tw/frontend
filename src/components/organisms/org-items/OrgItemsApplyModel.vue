@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import { useOrg } from '@/logics/apply'
-import { computed } from 'vue'
-
 import { Form } from 'vee-validate'
+import { useOrg } from '@/logics/apply'
 
 const {
   checkedItems,

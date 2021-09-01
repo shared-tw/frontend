@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import { toRefs, computed } from 'vue'
-import { cityNames } from '@/data'
-
 import type { GroupedRequiredItems } from '@/api'
+import { cityNames } from '@/data'
 
 interface Props {
   org: GroupedRequiredItems

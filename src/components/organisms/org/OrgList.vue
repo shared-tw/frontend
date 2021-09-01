@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import { computed, ref, onMounted } from 'vue'
+import type { ListItem } from '@/types'
+import type { GroupedRequiredItems } from '@/api'
 import { cityNames } from '@/data'
 import { OrganizationTypes } from '@/api'
 import donatorStore from '@/store/donator'
-
-import type { ListItem } from '@/types'
-import type { GroupedRequiredItems } from '@/api'
 
 const items = ref<GroupedRequiredItems[]>()
 

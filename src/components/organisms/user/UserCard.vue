@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import userStore from '@/store/user'
-import { onMounted, computed } from 'vue'
 
 onMounted(async() => {
   await userStore.actions.getUser()
