@@ -37,7 +37,7 @@ const {
       <span v-if="required" class="text-primary">*</span>
     </label>
     <AppAddMinusButton
-      :value="Number(inputValue)"
+      :value="inputValue"
       :error="!!errorMessage"
       :min="min"
       :max="max"
