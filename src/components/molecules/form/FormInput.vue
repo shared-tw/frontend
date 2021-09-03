@@ -24,6 +24,7 @@ const props = defineProps({
   },
   placeholder: {
     type: String,
+    default: undefined,
   },
   disabled: {
     type: Boolean,

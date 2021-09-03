@@ -1,5 +1,3 @@
-import { computed, onMounted, ref } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
 import { useStorage } from '@vueuse/core'
 import { needConfirm } from '@/store/apply'
 import donatorStore from '@/store/donator'

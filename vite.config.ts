@@ -6,6 +6,7 @@ import WindiCSS from 'vite-plugin-windicss'
 import VueComponents from 'unplugin-vue-components/vite'
 import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver'
+import AutoImport from 'unplugin-auto-import/vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -27,6 +28,13 @@ export default defineConfig({
     Vue(),
     Pages(),
     Icons(),
+    AutoImport({
+      imports: [
+        'vue',
+        'vue-router',
+      ],
+      dts: true,
+    }),
     VueComponents({
       dts: true,
       resolvers: [

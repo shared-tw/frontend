@@ -1,10 +1,9 @@
-import { reactive, watch } from 'vue'
+import { useStorage } from '@vueuse/core'
 import { router } from '@/router'
 import { authApi, registerApi } from '@/api'
 import httpClient from '@/api/httpClient'
 
 import type { JWTTokenCreation, DonatorCreation, OrganizationCreation, Donator, Organization } from '@/api'
-import { useStorage } from '@vueuse/core'
 
 const auth = useStorage('authenticated', 'false')
 

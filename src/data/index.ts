@@ -1,6 +1,7 @@
-import { data, select_columns } from './tw-county-list.json'
 import type { FieldChildren } from '@/types'
 import { OrganizationTypes } from '@/api'
+
+import { data, select_columns } from './tw-county-list.json'
 
 export const TWCountyList: FieldChildren[] = data.map((item) => {
   return {

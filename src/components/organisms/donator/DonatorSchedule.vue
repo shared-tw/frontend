@@ -2,7 +2,7 @@
 const props = defineProps({
   proccess: {
     type: Array,
-    default: [],
+    default: () => [],
   },
 })
 

@@ -1,7 +1,6 @@
 <script setup lang="ts">
-
-import type { FormContext } from 'vee-validate'
 import type { UnRef, LinkProp } from '@/types'
+import type { FormContext } from 'vee-validate'
 
 interface Props {
   isLoading?: boolean

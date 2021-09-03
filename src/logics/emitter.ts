@@ -1,5 +1,4 @@
 import mitt from 'mitt'
-import { onMounted } from 'vue'
 
 export const FLASH_EVENT = Symbol('flashMessage')
 
